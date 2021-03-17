@@ -11,5 +11,6 @@
     "Check Weather": "Check Weather",
     "Search_metricsbox_text": "Search City for Metrics",
     "Min": "Min",
-    "Max": "Max"
+    "Max": "Max",
+    "alert1": "Oups! An internal Error has occured. The page will refresh"
   }

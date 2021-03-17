@@ -4,6 +4,9 @@
 
 In the project directory wiremock_demo one can find all mock api calls for testing. Follow the following example and get ready.
 
+First pull the image:
+### `docker pull rodolpheche/wiremock`
+
 To run the image first type:
 ### `docker build -t wiremock-endpoints .\wiremock_demo\`
 

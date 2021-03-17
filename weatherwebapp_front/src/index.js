@@ -4,6 +4,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './i18n'
+import Honeybadger from '@honeybadger-io/js'
+import ErrorBoundary from '@honeybadger-io/react'
+
+Honeybadger.configure({
+  apiKey: '8e14ff1b',
+  environment: 'production'
+})
+
+//Honeybadger.notify('Hello from React')
 
 // //alternative way to react-boostrap
 // import $ from 'jquery';
@@ -11,9 +20,11 @@ import './i18n'
 // import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 ReactDOM.render(
-  <React.StrictMode>
+  //<React.StrictMode>
+    <ErrorBoundary honeybadger={Honeybadger}>
       <App />
-  </React.StrictMode>,
+    </ErrorBoundary>,
+  //</React.StrictMode>,
   document.getElementById('root')
 );
 

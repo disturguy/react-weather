@@ -10,7 +10,7 @@ import Sidebar from './Sidebar/Sidebar'
 // import data from '../Jsons/coordinates'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom';
-import { ErrorBoundary } from 'react-error-boundary'
+// import { ErrorBoundary } from 'react-error-boundary'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { withNamespaces } from 'react-i18next';
@@ -18,8 +18,19 @@ import convertTimestamp from '../scripts/convertTimestamp'
 import error_codes_reference from '../scripts/error_codes_reference'
 
 
-const Home = ({ t }) => {
+// axios.interceptors.response.use(
+//     response => response,
+//     error => {
+//       // We really want to throw the error so it is handled and we
+//       // don't get an unhandledrejection error. By throwing here, we
+//       // are handling the rejection, and bubbling up to the closest
+//       // error handler (try/catch or catch method call on a promise).
+//       throw error
+//     }
+//   )
 
+const Home = ({ t }) => {
+   
     const [lnglat, setCoordinates] = useState({ coordinates: [-83.376398, 33.9597677] });
     // const [results, setResults] = useState({weather_state: '-', weather_forecast_datetime: '-', weather_min_temp: '-', weather_max_temp: '-', weather_icon: '01d' });
     const [results, setResults] = useState({ data: {} });
@@ -29,10 +40,18 @@ const Home = ({ t }) => {
     let cancel;
     const notify = (message) => toast(message);
 
+    const promisaki = new Promise((resolve) => {
+        resolve(notify(t("alert1")));
+    });
+
     const apiErrorHandling = async (error) => {
 
             if (axios.isCancel(error)) {
                 console.log('Request cancelled successfully.');
+                // notify(t("alert1"));
+                promisaki.then(()=>{
+                    window.location.reload();
+                })
                 return;
             } else {
                 if (error.response.status === 404) {
@@ -47,6 +66,7 @@ const Home = ({ t }) => {
     }
 
     const onSearch = async () => {
+        
 
         if (cancel !== undefined) {
             cancel();
@@ -75,9 +95,18 @@ const Home = ({ t }) => {
 
 
     const revGeoloc = async () => {
+        
+        if (cancel !== undefined) {
+            cancel();
+        }
         try {
+
             // let response = await axios.get(`https://eu1.locationiq.com/v1/reverse.php?key=c5bca6977c807a27776c8a36988e68c3&lat=`+lnglat.coordinates[1]+`&lon=`+lnglat.coordinates[0]+`&format=json`);
-            let response = await axios.get(`http://localhost:8080/v1/reverse.php?key=pk.fafc1a26804f985cf9d25551bd04e10b&lat=-37.870662&lon=144.9803321&format=json`);
+            let response = await axios.get(`http://localhost:8080/v1/reverse.php?key=pk.fafc1a26804f985cf9d25551bd04e10b&lat=-37.870662&lon=144.9803321&format=json`, {
+                cancelToken: new CancelToken((c) => {
+                    cancel = c;
+                })
+            });
 
             // console.log(response);
             setCityName({ name: response.data.address.county, country: response.data.address.country });
@@ -87,20 +116,20 @@ const Home = ({ t }) => {
         }
     }
 
-    function ErrorFallback({ error }) {
+    // function ErrorFallback({ error }) {
 
-        return (
-            <div role="alert">
-                <p>Something went wrong:</p>
-                <pre style={{ color: 'red' }}>{error.message}</pre>
-            </div>
-        )
-    }
+    //     return (
+    //         <div role="alert">
+    //             <p>Something went wrong:</p>
+    //             <pre style={{ color: 'red' }}>{error.message}</pre>
+    //         </div>
+    //     )
+    // }
 
     return (
 
-        <ErrorBoundary
-            FallbackComponent={ErrorFallback}>
+        // <ErrorBoundary
+        //     FallbackComponent={ErrorFallback}>
             <Container fluid>
                 <ToastContainer />
                 <Row>
@@ -154,7 +183,7 @@ const Home = ({ t }) => {
                     </Col>
                 </Row>
             </Container>
-        </ErrorBoundary>
+        // </ErrorBoundary>
     );
 }
 
