@@ -1,0 +1,24 @@
+ {
+  "request": {
+    "method": "GET",
+    "urlPath": "/v1/search.php",
+    "queryParameters": {
+      "key": {
+        "equalTo": "pk.fafc1a26804f985cf9d25551bd04e10b"
+      },
+      "q": {
+        "matches": "[a-zA-Z0-9.' ']+"
+      },
+	  "format": {
+		"matches": "[a-zA-Z0-9.]+"
+	  }
+    }
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "fetchLocationQ.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

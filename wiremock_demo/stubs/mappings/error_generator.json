@@ -1,0 +1,14 @@
+{
+  "priority": 2,
+  "request": {
+    "method": "GET",
+    "urlPath": "/error_generator"
+  },
+  "response": {
+    "status": 409,
+    "bodyFileName": "errors.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
