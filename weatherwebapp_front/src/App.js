@@ -1,7 +1,7 @@
 import './assets/css/App.css';
 import MainRouting from './Routing/MainRouting'
 import { withNamespaces } from 'react-i18next'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Doughnut, Bar } from 'react-chartjs-2';
 import { Row, Col } from 'react-grid-system';
 

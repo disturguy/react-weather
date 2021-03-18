@@ -9,8 +9,7 @@ import axios from 'axios'
 import data from '../jsons/coordinates'
 import convertTimestamp from '../scripts/convertTimestamp'
 import error_codes_reference from '../scripts/error_codes_reference'
-import { useHistory } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { withNamespaces } from 'react-i18next';
 
@@ -35,7 +34,6 @@ const Statistics = ({ t }) => {
     const [latlng, setlatlng] = useState({ lat: '', lon: '' })
     const [view, setView] = useState(false);
 
-    const history = useHistory();
     const notify = (message) => toast(message);
 
 

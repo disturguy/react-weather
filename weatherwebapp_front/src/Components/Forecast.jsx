@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import WeatherCard from './WeatherCard';
 //import WeatherMap from './Map/WeatherMap'
 import { Container, Row, Col, Button } from 'react-bootstrap';
@@ -10,8 +10,7 @@ import data from '../jsons/coordinates'
 import { withNamespaces } from 'react-i18next';
 import convertTimestamp from '../scripts/convertTimestamp'
 import error_codes_reference from '../scripts/error_codes_reference'
-import { useHistory } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -29,7 +28,6 @@ const ForecastbyCity = ({ t }) => {
     const [latlng, setlatlng] = useState({ lat: '', lon: '' })
     const [view, setView] = useState(false);
 
-    const history = useHistory();
     const notify = (message) => toast(message);
 
     
@@ -99,7 +97,6 @@ const ForecastbyCity = ({ t }) => {
             res.data.map(a => hintArray.push(a.address.name + " " + a.address.state + " " + a.address.country));
             setHintData(hintArray);
         } catch (error) {
-            console.log("lala");
             apiErrorHandling(error);
         }
 
