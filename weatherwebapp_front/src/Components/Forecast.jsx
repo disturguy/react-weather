@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import WeatherCard from './WeatherCard';
 //import WeatherMap from './Map/WeatherMap'
 import { Container, Row, Col, Button } from 'react-bootstrap';
@@ -27,11 +27,12 @@ const ForecastbyCity = ({ t }) => {
     // const [results, setResults] = useState({weather_state: '-', weather_forecast_datetime: '-', weather_min_temp: '-', weather_max_temp: '-', weather_icon: '01d' });
     const [results, setResults] = useState({ data });
     const [latlng, setlatlng] = useState({ lat: '', lon: '' })
+    const [view, setView] = useState(false);
 
     const history = useHistory();
     const notify = (message) => toast(message);
 
-
+    
     const onSearch = async () => {
 
 
@@ -63,6 +64,8 @@ const ForecastbyCity = ({ t }) => {
             setlatlng({ lat: res.data[0].lat, lon: res.data[0].lon });
             // console.log(res);
             // setCoordinates({ cityname: res[0].display_name, lat: res[0].lat, lon: res[0].lon });
+
+            setView(true);
 
         } catch (error) {
             apiErrorHandling(error);
@@ -122,10 +125,10 @@ const ForecastbyCity = ({ t }) => {
                             </Hint>
                         </Col>
                         <Col>
-                            <Button onClick={() => { onSearch(); FetchLocationQ(); }}>{t("Check Weather")}</Button>
+                            <Button onClick={() => { onSearch(); FetchLocationQ();}}>{t("Check Weather")}</Button>
                         </Col>
                     </Row>
-                    {results.data.daily[0].dt === '' ? null : (
+                    {view === false ? null : (
                         <>
                             <hr />
                             <Row>

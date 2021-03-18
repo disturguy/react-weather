@@ -33,6 +33,7 @@ const Statistics = ({ t }) => {
     const [city, setCity] = useState('');
     const [results, setResults] = useState({ data });
     const [latlng, setlatlng] = useState({ lat: '', lon: '' })
+    const [view, setView] = useState(false);
 
     const history = useHistory();
     const notify = (message) => toast(message);
@@ -72,6 +73,7 @@ const Statistics = ({ t }) => {
             // latlng.lon = res.data.lon;
             setlatlng({ lat: res.data[0].lat, lon: res.data[0].lon });
 
+            setView(true);
             // return latlng;
             // console.log(res);
             // setCoordinates({ cityname: res[0].display_name, lat: res[0].lat, lon: res[0].lon });
@@ -127,38 +129,40 @@ const Statistics = ({ t }) => {
                     <hr />
                     <Row>
                         <Col sm={8}>
-                            <Charts data={{
-                                data1: [
-                                    (results.data.daily[0].temp.max + results.data.daily[0].temp.min) / 2,
-                                    (results.data.daily[1].temp.max + results.data.daily[1].temp.min) / 2,
-                                    (results.data.daily[2].temp.max + results.data.daily[2].temp.min) / 2,
-                                    (results.data.daily[3].temp.max + results.data.daily[3].temp.min) / 2,
-                                    (results.data.daily[4].temp.max + results.data.daily[4].temp.min) / 2,
-                                    (results.data.daily[5].temp.max + results.data.daily[5].temp.min) / 2,
-                                    (results.data.daily[6].temp.max + results.data.daily[6].temp.min) / 2,
-                                    (results.data.daily[7].temp.max + results.data.daily[7].temp.min) / 2],
-                                data2: [
-                                    results.data.daily[0].weather[0].main,
-                                    results.data.daily[1].weather[0].main,
-                                    results.data.daily[2].weather[0].main,
-                                    results.data.daily[3].weather[0].main,
-                                    results.data.daily[4].weather[0].main,
-                                    results.data.daily[5].weather[0].main,
-                                    results.data.daily[6].weather[0].main,
-                                    results.data.daily[7].weather[0].main],
-                                data3: [
-                                    convertTimestamp(results.data.daily[0].dt),
-                                    convertTimestamp(results.data.daily[1].dt),
-                                    convertTimestamp(results.data.daily[2].dt),
-                                    convertTimestamp(results.data.daily[3].dt),
-                                    convertTimestamp(results.data.daily[4].dt),
-                                    convertTimestamp(results.data.daily[5].dt),
-                                    convertTimestamp(results.data.daily[6].dt),
-                                    convertTimestamp(results.data.daily[7].dt)
-                                ]
-                            }
-                            }
-                            />
+                            {view === false ? null : (
+                                <Charts data={{
+                                    data1: [
+                                        (results.data.daily[0].temp.max + results.data.daily[0].temp.min) / 2,
+                                        (results.data.daily[1].temp.max + results.data.daily[1].temp.min) / 2,
+                                        (results.data.daily[2].temp.max + results.data.daily[2].temp.min) / 2,
+                                        (results.data.daily[3].temp.max + results.data.daily[3].temp.min) / 2,
+                                        (results.data.daily[4].temp.max + results.data.daily[4].temp.min) / 2,
+                                        (results.data.daily[5].temp.max + results.data.daily[5].temp.min) / 2,
+                                        (results.data.daily[6].temp.max + results.data.daily[6].temp.min) / 2,
+                                        (results.data.daily[7].temp.max + results.data.daily[7].temp.min) / 2],
+                                    data2: [
+                                        results.data.daily[0].weather[0].main,
+                                        results.data.daily[1].weather[0].main,
+                                        results.data.daily[2].weather[0].main,
+                                        results.data.daily[3].weather[0].main,
+                                        results.data.daily[4].weather[0].main,
+                                        results.data.daily[5].weather[0].main,
+                                        results.data.daily[6].weather[0].main,
+                                        results.data.daily[7].weather[0].main],
+                                    data3: [
+                                        convertTimestamp(results.data.daily[0].dt),
+                                        convertTimestamp(results.data.daily[1].dt),
+                                        convertTimestamp(results.data.daily[2].dt),
+                                        convertTimestamp(results.data.daily[3].dt),
+                                        convertTimestamp(results.data.daily[4].dt),
+                                        convertTimestamp(results.data.daily[5].dt),
+                                        convertTimestamp(results.data.daily[6].dt),
+                                        convertTimestamp(results.data.daily[7].dt)
+                                    ]
+                                }
+                                }
+                                />
+                            )}
                         </Col>
                     </Row>
                 </Col>

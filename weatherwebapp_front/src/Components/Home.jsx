@@ -19,7 +19,7 @@ import error_codes_reference from '../scripts/error_codes_reference'
 
 const Home = ({ t }) => {
 
-    const [lnglat, setCoordinates] = useState({ coordinates: ["1.1","1.1"] });
+    const [lnglat, setCoordinates] = useState({ coordinates: ["",""] });
     // const [results, setResults] = useState({weather_state: '-', weather_forecast_datetime: '-', weather_min_temp: '-', weather_max_temp: '-', weather_icon: '01d' });
     const [results, setResults] = useState({ data: {} });
     const [cityname, setCityName] = useState({ name: "", country: "" });
