@@ -34,49 +34,16 @@ const Statistics = ({ t }) => {
     const [results, setResults] = useState({ data });
     const [latlng, setlatlng] = useState({ lat: '', lon: '' })
 
-    const CancelToken = axios.CancelToken
-    let cancel;
     const history = useHistory();
     const notify = (message) => toast(message);
-
-    const promisaki = new Promise((resolve) => {
-        resolve(notify(t("alert1")));
-    });
-
-    const apiErrorHandling = async (error) => {
-        //console.log(error.response.data);
-        if (axios.isCancel(error)) {
-            console.log('Request cancelled successfully.');
-            promisaki.then(()=>{
-                window.location.reload();
-            })
-            return;
-        } else {
-            if (error.response.status === 404) {
-                history.replace(history.location.pathname, {
-                    errorStatusCode: error.response.status
-                });
-            } else if (error.response.status === 409) {
-                notify(error_codes_reference(error.response.data.errorCode));
-            }
-        }
-    }
 
 
     const onSearch = async () => {
 
-        if (cancel !== undefined) {
-            cancel();
-        }
-
         try {
 
             // const latlng = await FetchLocationQ();
-            let results = await axios.get(`http://localhost:8080/onecall?lat=` + latlng.lat + `&lon=` + latlng.lon + `&exclude=current,minutely,hourly,alerts&appid=c5bca6977c807a27776c8a36988e68c3`, {
-                cancelToken: new CancelToken((c) => {
-                    cancel = c;
-                })
-            });
+            let results = await axios.get(`http://localhost:8080/onecall?lat=` + latlng.lat + `&lon=` + latlng.lon + `&exclude=current,minutely,hourly,alerts&appid=c5bca6977c807a27776c8a36988e68c3`);
 
             console.log(results.data);
             // let results = FetchHook(`http://localhost:8080/weather?lat=` + lnglat.coordinates[1] + `&lon=` + lnglat.coordinates[0] + `&appid=c5bca6977c807a27776c8a36988e68c3`);
@@ -86,7 +53,7 @@ const Statistics = ({ t }) => {
             });
 
         } catch (error) {
-            apiErrorHandling(error);
+            //apiErrorHandling(error);
         }
 
     };
@@ -94,24 +61,16 @@ const Statistics = ({ t }) => {
 
     const FetchLocationQ = async () => {
 
-        if (cancel !== undefined) {
-            cancel();
-        }
-
         try {
             // let latlng = {
             //     lat: '',
             //     lon: ''
             // }
             // let response = await fetch(`https://eu1.locationiq.com/v1/search.php?key=pk.fafc1a26804f985cf9d25551bd04e10b&q=`+city+`&format=json`)
-            let res = await axios.get(`http://localhost:8080/v1/search.php?key=pk.fafc1a26804f985cf9d25551bd04e10b&q=` + city + `&format=json`, {
-                cancelToken: new CancelToken((c) => {
-                    cancel = c;
-                })
-            });
+            let res = await axios.get(`http://localhost:8080/v1/search.php?key=pk.fafc1a26804f985cf9d25551bd04e10b&q=` + city + `&format=json`);
             // latlng.lat = res.data.lat;
             // latlng.lon = res.data.lon;
-            setlatlng({lat: res.data[0].lat, lon: res.data[0].lon });
+            setlatlng({ lat: res.data[0].lat, lon: res.data[0].lon });
 
             // return latlng;
             // console.log(res);
@@ -124,17 +83,9 @@ const Statistics = ({ t }) => {
 
     const Autocomplete = async () => {
 
-        if (cancel !== undefined) {
-            cancel();
-        }
-
         try {
             // const res = await axios.get(`https://api.locationiq.com/v1/autocomplete.php?key=pk.fafc1a26804f985cf9d25551bd04e10b&q&q=Athens`);
-            const res = await axios.get(`http://localhost:8080/v1/autocomplete.php?key=pk.fafc1a26804f985cf9d25551bd04e10b&q&q=Athens`, {
-                cancelToken: new CancelToken((c) => {
-                    cancel = c;
-                })
-            });
+            const res = await axios.get(`http://localhost:8080/v1/autocomplete.php?key=pk.fafc1a26804f985cf9d25551bd04e10b&q&q=Athens`);
             var hintArray = []
             res.data.map(a => hintArray.push(a.address.name + " " + a.address.state + " " + a.address.country));
             setHintData(hintArray);
@@ -143,9 +94,16 @@ const Statistics = ({ t }) => {
         }
     }
 
+    const apiErrorHandling = async (error) => {
+        if (error.response.status === 404) {
+            notify(t("alert2"));
+        } else if (error.response.status === 409) {
+            notify(error_codes_reference(error.response.data.errorCode));
+        }
+    }
+
     return (
         <Container fluid>
-            <ToastContainer />
             <Row>
                 <Col sm={2}>
                     <Sidebar />

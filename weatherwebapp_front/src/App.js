@@ -1,27 +1,30 @@
 import './assets/css/App.css';
 import MainRouting from './Routing/MainRouting'
-import {withNamespaces} from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
-function App({t}) {
-  
-//   window.onunhandledrejection = (err) => {
+function App({ t }) {
 
-//     error_notification();
-// }
+  window.onunhandledrejection = (err) => {
 
-//   let error_notification = async () => {
+    error_notification();
+  }
 
-//     let promise = new Promise((resolve) => {
-//         resolve(alert(t("alert1")));
-//     });
-//     await promise;
-//     window.location.reload();
-// }
+  let error_notification = async () => {
+
+    let promise = new Promise((resolve) => {
+      resolve(alert(t("alert1")));
+    });
+    await promise;
+    window.location.reload();
+  }
 
   return (
     <div style={{ background: "#F7F5F3" }}>
       <MainRouting />
+      <ToastContainer />
     </div>
   );
 }
