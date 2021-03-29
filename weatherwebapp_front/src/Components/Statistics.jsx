@@ -8,7 +8,7 @@ import { Hint } from 'react-autocomplete-hint';
 import axios from 'axios'
 import data from '../jsons/coordinates'
 import convertTimestamp from '../scripts/convertTimestamp'
-import error_codes_reference from '../scripts/error_codes_reference'
+import {api_error_handling} from '../scripts/api_error_handling';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { withNamespaces } from 'react-i18next';
@@ -52,7 +52,7 @@ const Statistics = ({ t }) => {
             });
 
         } catch (error) {
-            //apiErrorHandling(error);
+            notify(t(api_error_handling(error)));
         }
 
     };
@@ -77,7 +77,7 @@ const Statistics = ({ t }) => {
             // setCoordinates({ cityname: res[0].display_name, lat: res[0].lat, lon: res[0].lon });
 
         } catch (error) {
-            apiErrorHandling(error);
+            notify(t(api_error_handling(error)));
         }
     }
 
@@ -90,17 +90,10 @@ const Statistics = ({ t }) => {
             res.data.map(a => hintArray.push(a.address.name + " " + a.address.state + " " + a.address.country));
             setHintData(hintArray);
         } catch (error) {
-            apiErrorHandling(error);
+            notify(t(api_error_handling(error)));
         }
     }
 
-    const apiErrorHandling = async (error) => {
-        if (error.response.status === 404) {
-            notify(t("alert2"));
-        } else if (error.response.status === 409) {
-            notify(error_codes_reference(error.response.data.errorCode));
-        }
-    }
 
     return (
         <Container fluid>

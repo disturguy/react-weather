@@ -9,7 +9,7 @@ import axios from 'axios';
 import data from '../jsons/coordinates'
 import { withNamespaces } from 'react-i18next';
 import convertTimestamp from '../scripts/convertTimestamp'
-import error_codes_reference from '../scripts/error_codes_reference'
+import {api_error_handling} from '../scripts/api_error_handling';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -47,7 +47,7 @@ const ForecastbyCity = ({ t }) => {
             });
 
         } catch (error) {
-            apiErrorHandling(error);
+            notify(t(api_error_handling(error)));
         }
 
     };
@@ -66,16 +66,7 @@ const ForecastbyCity = ({ t }) => {
             setView(true);
 
         } catch (error) {
-            apiErrorHandling(error);
-        }
-    }
-
-    const apiErrorHandling = async (error) => {
-
-        if (error.response.status === 404) {
-            notify(t("alert2"));
-        } else if (error.response.status === 409) {
-            notify(error_codes_reference(error.response.data.errorCode));
+            notify(t(api_error_handling(error)));
         }
     }
 
@@ -97,7 +88,7 @@ const ForecastbyCity = ({ t }) => {
             res.data.map(a => hintArray.push(a.address.name + " " + a.address.state + " " + a.address.country));
             setHintData(hintArray);
         } catch (error) {
-            apiErrorHandling(error);
+            notify(t(api_error_handling(error)));
         }
 
     }

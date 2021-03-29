@@ -15,7 +15,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { withNamespaces } from 'react-i18next';
 import convertTimestamp from '../scripts/convertTimestamp'
-import error_codes_reference from '../scripts/error_codes_reference'
+import {api_error_handling} from '../scripts/api_error_handling';
+import onSearch from '../scripts/api_calls/current_weather'
 
 const Home = ({ t }) => {
 
@@ -30,24 +31,15 @@ const Home = ({ t }) => {
     //     resolve(notify(t("alert1")));
     // });
 
-    const onSearch = async () => {
 
-        try {
-
-            let results = await axios.get(`http://localhost:8080/weather?lat=` + lnglat.coordinates[1] + `&lon=` + lnglat.coordinates[0] + `&appid=c5bca6977c807a27776c8a36988e68c3`);
-            //let results = await axios.get(`http://localhost:8080/error_generator`);
-
-            console.log(results.data);
-            // let results = FetchHook(`http://localhost:8080/weather?lat=` + lnglat.coordinates[1] + `&lon=` + lnglat.coordinates[0] + `&appid=c5bca6977c807a27776c8a36988e68c3`);
-
-            setResults({
-                data: results.data
-            });
-
-        } catch (error) {
-            apiErrorHandling(error);
-        }
-    };
+    onSearch.then((results)=>{
+        setResults({
+            data: results.data
+        });
+    })
+    .catch((error) => {
+        notify(t(error));
+    })
 
 
     const revGeoloc = async () => {
@@ -61,18 +53,8 @@ const Home = ({ t }) => {
             setCityName({ name: response.data.address.county, country: response.data.address.country });
 
         } catch (error) {
-            apiErrorHandling(error);
+            notify(t(api_error_handling(error)));
         }
-    }
-
-    const apiErrorHandling = async (error) => {
-
-        if (error.response.status === 404) {
-            notify(t("alert1"));
-        } else if (error.response.status === 409) {
-            notify(error_codes_reference(error.response.data.errorCode));
-        }
-
     }
 
     // function ErrorFallback({ error }) {

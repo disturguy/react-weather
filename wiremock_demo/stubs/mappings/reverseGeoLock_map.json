@@ -6,13 +6,13 @@
       "key": {
         "equalTo": "pk.fafc1a26804f985cf9d25551bd04e10b"
       },
-	  "lat": {
-		"matches": "[+-a-zA-Z0-9.]+"
-	  },
-	  "lon": {
-		"matches": "[+-a-zA-Z0-9.]+"
-	  },
-	  "format": {
+      "lat": {
+        "matches": "[+-a-zA-Z0-9.]+"
+      },
+      "lon": {
+        "matches": "[+-a-zA-Z0-9.]+"
+      },
+      "format": {
         "matches": "[a-zA-Z0-9.]+"
       }
     }
@@ -21,7 +21,13 @@
     "status": 200,
     "bodyFileName": "revGeoloc.json",
     "headers": {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "*",
+      "Access-Control-Allow-Headers": "Accept, Content-Type, Content-Encoding, Server, Transfer-Encoding",
+      "X-Content-Type-Options": "nosniff",
+      "x-frame-options": "DENY",
+      "x-xss-protection": "1; mode=block"
     }
   }
 }

@@ -13,5 +13,10 @@
     "Min": "Min",
     "Max": "Max",
     "alert1": "Oups! An internal Error has occured. The page will refresh",
-    "alert2": "Please start typing a city name"
+    "alert2": "Please start typing a city name",
+    "alert3": "Ops! An unexpected error has occured. Please refresh the page!",
+    "alert4": "Invalid City Name. Please enter a valid city",
+    "alert5": "Invalid city. Please contact support",
+    "alert6": "Parametrical"
+
   }
