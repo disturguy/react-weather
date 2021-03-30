@@ -15,10 +15,11 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { withNamespaces } from 'react-i18next';
 import convertTimestamp from '../scripts/convertTimestamp'
-import {api_error_handling} from '../scripts/api_error_handling';
 import onSearch from '../scripts/api_calls/current_weather'
+import revGeoloc from '../scripts/api_calls/rev_geoloc'
 
 const Home = ({ t }) => {
+
 
     const [lnglat, setCoordinates] = useState({ coordinates: ["",""] });
     // const [results, setResults] = useState({weather_state: '-', weather_forecast_datetime: '-', weather_min_temp: '-', weather_max_temp: '-', weather_icon: '01d' });
@@ -30,32 +31,6 @@ const Home = ({ t }) => {
     // const promisaki = new Promise((resolve) => {
     //     resolve(notify(t("alert1")));
     // });
-
-
-    onSearch.then((results)=>{
-        setResults({
-            data: results.data
-        });
-    })
-    .catch((error) => {
-        notify(t(error));
-    })
-
-
-    const revGeoloc = async () => {
-
-        try {
-
-            //let response = await axios.get(`https://eu1.locationiq.com/v1/reverse.php?key=c5bca6977c807a27776c8a36988e68c3&lat=`+lnglat.coordinates[1]+`&lon=`+lnglat.coordinates[0]+`&format=json`);
-            let response = await axios.get(`http://localhost:8080/v1/reverse.php?key=pk.fafc1a26804f985cf9d25551bd04e10b&lat=-37.870662&lon=144.9803321&format=json`);
-
-            // console.log(response);
-            setCityName({ name: response.data.address.county, country: response.data.address.country });
-
-        } catch (error) {
-            notify(t(api_error_handling(error)));
-        }
-    }
 
     // function ErrorFallback({ error }) {
 
@@ -83,7 +58,17 @@ const Home = ({ t }) => {
                                 {t("jumbotron_message")}
                             </p>
                             <p>
-                                <Button onClick={() => { onSearch(); revGeoloc();}}>{t("Current Weather")}</Button>
+                                <Button onClick={() => { 
+                                    onSearch(lnglat).then(
+                                        (res) => { 
+                                            setResults({data: res.data})
+                                        });
+                                        revGeoloc().then((res) =>{
+                                            setCityName({ name: res.data.address.county, country: res.data.address.country });
+                                        }).catch((error) => {
+                                            notify(t(error))
+                                        }) 
+                                    }}>{t("Current Weather")}</Button>
                             </p>
                         </Container>
                     </Jumbotron>

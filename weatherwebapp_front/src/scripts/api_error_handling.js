@@ -1,8 +1,8 @@
 import error_codes_reference from '../scripts/error_codes_reference'
 
-class api_error_handling{
+class Api_error_handling{
     
-    apiErrorHandling = async (error) => {
+    errorReporting = (error) => {
 
         let alert_message;
 
@@ -16,4 +16,4 @@ class api_error_handling{
     }
 }
 
-export default api_error_handling
+export default Api_error_handling
