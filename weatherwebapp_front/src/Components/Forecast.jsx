@@ -75,7 +75,7 @@ const ForecastbyCity = ({ t }) => {
                                     (res) => {
                                         setResults({ data: res.data })
                                     }).catch((error) => {
-                                        console.log(error)
+                                        // console.log(error)
                                         notify(t(error.message))
                                     });
                                 fetchLocation().then((res) => {
