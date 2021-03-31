@@ -1,17 +1,21 @@
 import ApiErrorHandling from '../../scripts/api_error_handling';
+import {base_url} from '../../property_files/base_host';
+import {cur_weather_url} from '../../property_files/api_urls';
 import axios from 'axios'
 
 
 const onSearch = async (lnglat) => {
 
-    try {
+    let ErrorClass = new ApiErrorHandling();
 
-        let results = await axios.get(`http://localhost:8080/weather?lat=` + lnglat.coordinates[1] + `&lon=` + lnglat.coordinates[0] + `&appid=c5bca6977c807a27776c8a36988e68c3`);
+    try {
+        let results = await axios({method: 'get', url: cur_weather_url(lnglat), baseURL: base_url});
+        //let results = await axios.get(`http://localhost:8080/error_generator`);
 
         return results;
 
     } catch (error) {
-         throw new Error(ApiErrorHandling.errorReporting(error));
+         throw new Error(ErrorClass.errorReporting(error));
     }
 };
 

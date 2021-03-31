@@ -7,12 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App({ t }) {
 
-  window.onunhandledrejection = (err) => {
-
-    error_notification();
-  }
-
-  let error_notification = async () => {
+  window.onunhandledrejection = async () => {
 
     let promise = new Promise((resolve) => {
       resolve(alert(t("alert1")));

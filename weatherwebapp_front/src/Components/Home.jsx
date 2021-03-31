@@ -2,31 +2,30 @@ import React, { useState } from 'react';
 // import Header from './Header';
 import WeatherCard from './WeatherCard';
 // import WeatherMap from './Map/WeatherMap'
-import WeatherMap from './MapGL/Maps'
+import WeatherMap from './MapGL/Maps';
 // import MyGoogleMap from './map2/GoogleMap'
 import { Container, Row, Col } from 'react-grid-system';
 import { Button, Jumbotron } from 'react-bootstrap';
-import Sidebar from './Sidebar/Sidebar'
+import Sidebar from './Sidebar/Sidebar';
 // import data from '../Jsons/coordinates'
-import axios from 'axios'
 // import { useHistory } from 'react-router-dom';
 // import { ErrorBoundary } from 'react-error-boundary'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { withNamespaces } from 'react-i18next';
-import convertTimestamp from '../scripts/convertTimestamp'
-import onSearch from '../scripts/api_calls/current_weather'
-import revGeoloc from '../scripts/api_calls/rev_geoloc'
+import convertTimestamp from '../scripts/convertTimestamp';
+import onSearch from '../scripts/api_calls/current_weather';
+import revGeoloc from '../scripts/api_calls/rev_geoloc';
 
 const Home = ({ t }) => {
 
 
-    const [lnglat, setCoordinates] = useState({ coordinates: ["",""] });
+    const [lnglat, setCoordinates] = useState({ coordinates: ["10.10", "10.10"] });
     // const [results, setResults] = useState({weather_state: '-', weather_forecast_datetime: '-', weather_min_temp: '-', weather_max_temp: '-', weather_icon: '01d' });
     const [results, setResults] = useState({ data: {} });
     const [cityname, setCityName] = useState({ name: "", country: "" });
     // const history = useHistory();
-    const notify = (message) => toast(message,{});
+    const notify = (message) => toast(message, {});
 
     // const promisaki = new Promise((resolve) => {
     //     resolve(notify(t("alert1")));
@@ -58,17 +57,19 @@ const Home = ({ t }) => {
                                 {t("jumbotron_message")}
                             </p>
                             <p>
-                                <Button onClick={() => { 
+                                <Button onClick={() => {
                                     onSearch(lnglat).then(
-                                        (res) => { 
-                                            setResults({data: res.data})
-                                        });
-                                        revGeoloc().then((res) =>{
-                                            setCityName({ name: res.data.address.county, country: res.data.address.country });
+                                        (res) => {
+                                            setResults({ data: res.data })
                                         }).catch((error) => {
-                                            notify(t(error))
-                                        }) 
-                                    }}>{t("Current Weather")}</Button>
+                                            notify(t(error.message))
+                                        });
+                                    revGeoloc().then((res) => {
+                                        setCityName({ name: res.data.address.county, country: res.data.address.country });
+                                    }).catch((error) => {
+                                        notify(t(error.message))
+                                    })
+                                }}>{t("Current Weather")}</Button>
                             </p>
                         </Container>
                     </Jumbotron>

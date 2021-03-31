@@ -3,16 +3,16 @@ import WeatherCard from './WeatherCard';
 //import WeatherMap from './Map/WeatherMap'
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import Sidebar from './Sidebar/Sidebar';
-import '../assets/css/Hint.css'
+import '../assets/css/Hint.css';
 import { Hint } from 'react-autocomplete-hint';
-import axios from 'axios';
 import data from '../jsons/coordinates'
 import { withNamespaces } from 'react-i18next';
-import convertTimestamp from '../scripts/convertTimestamp'
-import ApiErrorHandling from '../scripts/api_error_handling';
+import convertTimestamp from '../scripts/convertTimestamp';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import oneCall from '../scripts/api_calls/onecall';
+import fetchLocation from '../scripts/api_calls/fetchLocation';
+import autoComplete from '../scripts/api_calls/autoComplete';
 
 
 
@@ -31,45 +31,7 @@ const ForecastbyCity = ({ t }) => {
 
     const notify = (message) => toast(message);
 
-    
-    const onSearch = async () => {
 
-
-        try {
-
-            //const latlng = await FetchLocationQ();
-            let results = await axios.get(`http://localhost:8080/onecall?lat=` + latlng.lat + `&lon=` + latlng.lon + `&exclude=current,minutely,hourly,alerts&appid=c5bca6977c807a27776c8a36988e68c3`);
-
-            console.log(results.data);
-            // let results = FetchHook(`http://localhost:8080/weather?lat=` + lnglat.coordinates[1] + `&lon=` + lnglat.coordinates[0] + `&appid=c5bca6977c807a27776c8a36988e68c3`);
-
-            setResults({
-                data: results.data
-            });
-
-        } catch (error) {
-            notify(t(ApiErrorHandling.errorReporting(error)));
-        }
-
-    };
-
-
-    const FetchLocationQ = async () => {
-
-        try {
-
-            // let response = await fetch(`https://eu1.locationiq.com/v1/search.php?key=pk.fafc1a26804f985cf9d25551bd04e10b&q=`+city+`&format=json`)
-            let res = await axios.get(`http://localhost:8080/v1/search.php?key=pk.fafc1a26804f985cf9d25551bd04e10b&q=` + city + `&format=json`);
-            setlatlng({ lat: res.data[0].lat, lon: res.data[0].lon });
-            // console.log(res);
-            // setCoordinates({ cityname: res[0].display_name, lat: res[0].lat, lon: res[0].lon });
-
-            setView(true);
-
-        } catch (error) {
-            notify(t(ApiErrorHandling.errorReporting(error)));
-        }
-    }
 
     // const FetchData = async () => {
     //     try {
@@ -78,21 +40,6 @@ const ForecastbyCity = ({ t }) => {
     //         console.log(error);
     //     }
     // }
-
-
-    const Autocomplete = async () => {
-
-        try {
-            // const res = await axios.get(`https://api.locationiq.com/v1/autocomplete.php?key=pk.fafc1a26804f985cf9d25551bd04e10b&q&q=Athens`);
-            const res = await axios.get(`http://localhost:8080/v1/autocomplete.php?key=pk.fafc1a26804f985cf9d25551bd04e10b&q=Athens`);
-            var hintArray = []
-            res.data.map(a => hintArray.push(a.address.name + " " + a.address.state + " " + a.address.country));
-            setHintData(hintArray);
-        } catch (error) {
-            notify(t(ApiErrorHandling.errorReporting(error)));
-        }
-
-    }
 
     return (
         <Container fluid>
@@ -110,11 +57,34 @@ const ForecastbyCity = ({ t }) => {
                     <Row>
                         <Col sm={4}>
                             <Hint options={hintData} allowTabFill>
-                                <input className='input-with-hint' value={city} onChange={(event) => { setCity(event.target.value); Autocomplete(); }} />
+                                <input className='input-with-hint' value={city} onChange={(event) => {
+                                    setCity(event.target.value);
+                                    autoComplete()
+                                        .then((hintArray) => {
+                                            setHintData(hintArray);
+                                        })
+                                        .catch((error) => {
+                                            notify(t(error.message))
+                                        })
+                                }} />
                             </Hint>
                         </Col>
                         <Col>
-                            <Button onClick={() => { onSearch(); FetchLocationQ();}}>{t("Check Weather")}</Button>
+                            <Button onClick={() => {
+                                oneCall(latlng).then(
+                                    (res) => {
+                                        setResults({ data: res.data })
+                                    }).catch((error) => {
+                                        console.log(error)
+                                        notify(t(error.message))
+                                    });
+                                fetchLocation().then((res) => {
+                                    setlatlng({ lat: res.data[0].lat, lon: res.data[0].lon });
+                                    setView(true);
+                                }).catch((error) => {
+                                    notify(t(error.message))
+                                })
+                            }}>{t("Check Weather")}</Button>
                         </Col>
                     </Row>
                     {view === false ? null : (
@@ -198,7 +168,7 @@ const ForecastbyCity = ({ t }) => {
                     )}
                 </Col>
             </Row>
-        </Container>
+        </Container >
     );
 }
 

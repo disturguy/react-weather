@@ -5,10 +5,10 @@
     "urlPath": "/weather",
     "queryParameters": {
       "lat": {
-        "matches": "[+-a-zA-Z0-9. ]+"
+        "matches": "[0-9]+\\.[0-9]+"
       },
       "lon": {
-        "matches": "[+-a-zA-Z0-9. ]+"
+        "matches": "[0-9]+\\.[0-9]+"
       },
       "appid": {
         "matches": "[a-zA-Z0-9.]+"
