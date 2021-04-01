@@ -19,7 +19,7 @@ function App({ t }) {
   return (
     <div style={{ background: "#F7F5F3" }}>
       <MainRouting />
-      <ToastContainer />
+      <ToastContainer style={{ width: "400px" }}/>
     </div>
   );
 }

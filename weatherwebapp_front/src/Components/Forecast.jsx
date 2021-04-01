@@ -26,10 +26,17 @@ const ForecastbyCity = ({ t }) => {
     const [city, setCity] = useState('');
     // const [results, setResults] = useState({weather_state: '-', weather_forecast_datetime: '-', weather_min_temp: '-', weather_max_temp: '-', weather_icon: '01d' });
     const [results, setResults] = useState({ data });
-    const [latlng, setlatlng] = useState({ lat: '', lon: '' })
+    const [latlng, setlatlng] = useState({ lat: '10', lon: '10' })
     const [view, setView] = useState(false);
 
-    const notify = (message) => toast(message);
+    const customId = "toast_id";
+    const Msg = ({ message }) => (
+        <h4>
+            {message}
+        </h4>
+    )
+    const notify = (message) => toast.info(<Msg message={message} />, { toastId: customId });
+
 
 
 
@@ -78,12 +85,17 @@ const ForecastbyCity = ({ t }) => {
                                         // console.log(error)
                                         notify(t(error.message))
                                     });
-                                fetchLocation().then((res) => {
-                                    setlatlng({ lat: res.data[0].lat, lon: res.data[0].lon });
-                                    setView(true);
-                                }).catch((error) => {
-                                    notify(t(error.message))
-                                })
+                                fetchLocation().then(
+                                    (res) => {
+                                        //console.log(res.data[0].lon)
+                                        setlatlng({ lat: res.data[0].lat, lon: res.data[0].lon })
+                                        console.log(results.data.daily[0])
+                                        if (results.data.daily[0].dt !== ""){
+                                            setView(true);
+                                        }
+                                    }).catch((error) => {
+                                        notify(t(error.message))
+                                    })
                             }}>{t("Check Weather")}</Button>
                         </Col>
                     </Row>

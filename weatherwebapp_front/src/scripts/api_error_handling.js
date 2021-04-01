@@ -1,9 +1,8 @@
 import error_codes_reference from '../scripts/error_codes_reference'
 
-class Api_error_handling{
+class ApiEerrorHandling{
     
     errorReporting = (error) => {
-        console.log(error);
         let alert_message;
         if(error.response !== undefined){
             if (error.response.status !== 409) {
@@ -18,4 +17,4 @@ class Api_error_handling{
     }
 }
 
-export default Api_error_handling
+export default ApiEerrorHandling

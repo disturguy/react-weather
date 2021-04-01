@@ -1,25 +1,28 @@
+import {locationQ_apikey} from './api_keys'
+
 export const cur_weather_url = (lnglat) =>{
 
-    return `weather?lat=` + lnglat.coordinates[1] + `&lon=` + lnglat.coordinates[0] + `&appid=c5bca6977c807a27776c8a36988e68c3`
+    return `api/weather/current/coordinates?latitude=` + lnglat.coordinates[1] + `&longitude=` + lnglat.coordinates[0]
     //return `error_generator`
 }
 
-export const revGeoloc_url = () =>{
+export const revGeoloc_url = (lnglat) =>{
 
-    return `v1/reverse.php?key=pk.fafc1a26804f985cf9d25551bd04e10b&lat=-37.870662&lon=144.9803321&format=json`
+    return `v1/reverse.php?key=`+ locationQ_apikey +`&lat=`+ lnglat.coordinates[1] +`&lon=`+ lnglat.coordinates[0] +`&format=json`
 }
 
 export const fetchLocationQ_url = (city) =>{
 
-    return `http://localhost:8080/v1/search.php?key=pk.fafc1a26804f985cf9d25551bd04e10b&q=` + city + `&format=json`
+    return `v1/search.php?key=`+ locationQ_apikey +`&q=` + city + `&format=json`
 }
 
 export const oneCall_url = (latlng) =>{
 
-    return `http://localhost:8080/onecall?lat=` + latlng.lat + `&lon=` + latlng.lon + `&exclude=current,minutely,hourly,alerts&appid=c5bca6977c807a27776c8a36988e68c3`
+    return `api/weather/forecast/daily?lat=` + latlng.lat + `&lon=` + latlng.lon + `&units=metric&lang=en`
+    //return `onecall?lat=` + latlng.lat + `&lon=` + latlng.lon + `&exclude=current,minutely,hourly,alerts`
 }
 
-export const autoComplete_url = () =>{
+export const autoComplete_url = (city) =>{
 
-    return `http://localhost:8080/v1/autocomplete.php?key=pk.fafc1a26804f985cf9d25551bd04e10b&q=Athens`
+    return `v1/autocomplete.php?key=`+ locationQ_apikey +`&q=`+city
 }

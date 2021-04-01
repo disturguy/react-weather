@@ -32,10 +32,16 @@ const Statistics = ({ t }) => {
     const [hintData, setHintData] = useState([]);
     const [city, setCity] = useState('');
     const [results, setResults] = useState({ data });
-    const [latlng, setlatlng] = useState({ lat: '', lon: '' })
+    const [latlng, setlatlng] = useState({ lat: ' ', lon: ' ' })
     const [view, setView] = useState(false);
 
-    const notify = (message) => toast(message);
+    const customId = "toast_id";
+    const Msg = ({message}) => (
+        <h4>
+            {message}
+        </h4>
+      )
+    const notify = (message) => toast.info(<Msg message={message}/>, {toastId: customId});
 
 
     return (

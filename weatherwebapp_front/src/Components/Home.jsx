@@ -19,13 +19,19 @@ import revGeoloc from '../scripts/api_calls/rev_geoloc';
 
 const Home = ({ t }) => {
 
-
-    const [lnglat, setCoordinates] = useState({ coordinates: ["10.10", "10.10"] });
+    const [lnglat, setCoordinates] = useState({ coordinates: [" ", " "] });
     // const [results, setResults] = useState({weather_state: '-', weather_forecast_datetime: '-', weather_min_temp: '-', weather_max_temp: '-', weather_icon: '01d' });
     const [results, setResults] = useState({ data: {} });
     const [cityname, setCityName] = useState({ name: "", country: "" });
     // const history = useHistory();
-    const notify = (message) => toast(message, {});
+
+    const customId = "toast_id";
+    const Msg = ({message}) => (
+        <h4>
+            {message}
+        </h4>
+      )
+    const notify = (message) => toast.info(<Msg message={message}/>, {toastId: customId});
 
     // const promisaki = new Promise((resolve) => {
     //     resolve(notify(t("alert1")));
@@ -64,7 +70,7 @@ const Home = ({ t }) => {
                                         }).catch((error) => {
                                             notify(t(error.message))
                                         });
-                                    revGeoloc().then((res) => {
+                                    revGeoloc(lnglat).then((res) => {
                                         setCityName({ name: res.data.address.county, country: res.data.address.country });
                                     }).catch((error) => {
                                         notify(t(error.message))

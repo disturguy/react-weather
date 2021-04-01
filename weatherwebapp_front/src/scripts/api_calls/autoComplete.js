@@ -1,5 +1,5 @@
 import ApiErrorHandling from '../api_error_handling';
-import {base_url} from '../../property_files/base_host';
+import {base_url_local} from '../../property_files/base_host';
 import {autoComplete_url} from '../../property_files/api_urls';
 import axios from 'axios'
 
@@ -11,7 +11,7 @@ const autoComplete = async (city) => {
     try {
 
         //const latlng = await FetchLocationQ();
-        const response = await axios({method: 'get', url: autoComplete_url(), baseURL: base_url});
+        const response = await axios({method: 'get', url: autoComplete_url(), baseURL: base_url_local});
         var hintArray = []
         response.data.map(a => hintArray.push(a.address.name + " " + a.address.state + " " + a.address.country));
 

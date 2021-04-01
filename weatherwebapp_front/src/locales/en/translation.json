@@ -12,6 +12,7 @@
     "Search_metricsbox_text": "Search City for Metrics",
     "Min": "Min",
     "Max": "Max",
+    "generic_alert": "Oops. We are sorry. The service is unavailable. Please try again Later",
     "alert1": "Oups! An internal Error has occured. The page will refresh",
     "alert2": "Please start typing a city name",
     "alert3": "Ops! An unexpected error has occured. Please refresh the page!",

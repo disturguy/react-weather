@@ -4,11 +4,14 @@
     "method": "GET",
     "urlPath": "/onecall",
     "queryParameters": {
+	  "lat": {
+        "matches": "[+-a-zA-Z0-9.]+"
+      },
+      "lon": {
+        "matches": "[+-a-zA-Z0-9.]+"
+      },
       "exclude": {
         "equalTo": "current,minutely,hourly,alerts"
-      },
-      "appid": {
-        "equalTo": "c5bca6977c807a27776c8a36988e68c3"
       }
     }
   },

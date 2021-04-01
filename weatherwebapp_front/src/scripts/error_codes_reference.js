@@ -1,7 +1,7 @@
 const error_code_reference = (errorcode) =>{
     if (errorcode === 5000) {
         //Generic Error
-        return "O3"
+        return "generic_alert"
     }else if(errorcode === 1000){
         //Invalid city name
         return "alert4"
