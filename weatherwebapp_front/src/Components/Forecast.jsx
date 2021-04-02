@@ -80,14 +80,23 @@ const ForecastbyCity = ({ t }) => {
                             <Button onClick={() => {
                                 fetchLocation().then(
                                     (res) => {
-                                        setlatlng({ lat: res.data[0].lat, lon: res.data[0].lon })
+                                        console.log(res.data[0])
+                                        if (res.data[0] !== undefined) {
+                                            setlatlng({ lat: res.data[0].lat, lon: res.data[0].lon })
+                                        }else{
+                                            throw new Error("alert4")
+                                        }
                                     }).catch((error) => {
                                         notify(t(error.message))
                                     })
                                 forecastDaily(latlng).then(
                                     (res) => {
-                                        console.log(res)
-                                        setResults({ data: res.data })
+                                        console.log(res.data)
+                                        if (res.data !== undefined) {
+                                            setResults({ data: res.data })
+                                        }else{
+                                            throw new Error("alert4")
+                                        }
                                     }).then(() => {
                                         setView(true);
                                     }).catch((error) => {

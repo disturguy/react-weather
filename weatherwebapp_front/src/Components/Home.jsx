@@ -67,6 +67,7 @@ const Home = ({ t }) => {
                                     onSearch(lnglat).then(
                                         (res) => {
                                             setResults({ data: res.data })
+                                            console.log(res.weatherDescription[0])
                                         }).catch((error) => {
                                             notify(t(error.message))
                                         });
@@ -91,11 +92,11 @@ const Home = ({ t }) => {
                             <Row>
                                 <Col sm={4}>
                                     <WeatherCard
-                                        dt={convertTimestamp(results.data.dt)}
-                                        temp_min={results.data.main.temp_min}
-                                        temp_max={results.data.main.temp_max}
-                                        main={results.data.weather[0].main}
-                                        icon={results.data.weather[0].icon}
+                                        dt={convertTimestamp(results.data.timeOfDataCalculation)}
+                                        temp_min={results.data.mainInfo.tempMin}
+                                        temp_max={results.data.mainInfo.tempMax}
+                                        main={results.data.weatherDescription[0].main}
+                                        icon={results.data.weatherDescription[0].icon}
                                     />
                                 </Col>
                             </Row>

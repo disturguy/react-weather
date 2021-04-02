@@ -73,19 +73,29 @@ const Statistics = ({ t }) => {
                         </Col>
                         <Col>
                         <Button onClick={() => {
+                                fetchLocation().then(
+                                    (res) => {
+                                        if (res.data[0] !== undefined) {
+                                            setlatlng({ lat: res.data[0].lat, lon: res.data[0].lon })
+                                        }else{
+                                            throw new Error("alert4")
+                                        }
+                                    }).catch((error) => {
+                                        notify(t(error.message))
+                                    })
                                 forecastDaily(latlng).then(
                                     (res) => {
-                                        setResults({ data: res.data })
+                                        if (res.data[0] !== undefined) {
+                                            setResults({ data: res.data })
+                                        }else{
+                                            throw new Error("alert4")
+                                        }
+                                    }).then(() => {
+                                        setView(true);
                                     }).catch((error) => {
-                                        console.log(error)
+                                        // console.log(error)
                                         notify(t(error.message))
                                     });
-                                fetchLocation().then((res) => {
-                                    setlatlng({ lat: res.data[0].lat, lon: res.data[0].lon });
-                                    setView(true);
-                                }).catch((error) => {
-                                    notify(t(error.message))
-                                })
                             }}>{t("Check Weather")}</Button>
                         </Col>
                     </Row>

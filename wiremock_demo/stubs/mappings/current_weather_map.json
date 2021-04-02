@@ -14,7 +14,7 @@
   },
   "response": {
     "status": 200,
-    "bodyFileName": "current-weather-by-coordinates.json",
+    "bodyFileName": "HV_current-weather-by-coordinates.json",
     "headers": {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",

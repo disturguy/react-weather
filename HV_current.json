@@ -1,0 +1,54 @@
+{
+    "generalInfo": {
+        "city": "Výronas",
+        "country": "GR",
+        "sunrise": "2021-04-02T04:08:36Z",
+        "sunset": "2021-04-02T16:48:17Z"
+    },
+    "cloudsInfo": {
+        "cloudinessInPercentage": 0
+    },
+    "coordinates": {
+        "longitude": 23.7371,
+        "latitude": 37.9718
+    },
+    "mainInfo": {
+        "temp": 290.82,
+        "feelsLike": 289.9,
+        "tempMin": 288.71,
+        "tempMax": 293.15,
+        "pressure": 1016,
+        "humidity": 48,
+        "seaLevel": 0.0,
+        "groundLevel": 0.0
+    },
+    "weatherDescription": [
+        {
+            "main": "Clear",
+            "description": "clear sky"
+			"icon": "03d"
+        }
+    ],
+    "windInfo": {
+        "speed": 6.17,
+        "windDirectionInDegrees": 200,
+        "gust": 0.0
+    },
+    "visibility": 10000,
+    "snow": {
+        "snowVolumeLastOneHourInMillimetres": 0.0,
+        "snowVolumeLastThreeHoursInMillimetres": 0.0
+    },
+    "rain": {
+        "rainVolumeLastOneHourInMillimetres": 0.0,
+        "rainVolumeLastThreeHoursInMillimetres": 0.0
+    },
+    "precipitation": {
+        "valueInMillimetres": 0.0,
+        "mode": null
+    },
+    "lastUpdate": {
+        "value": null
+    },
+    "timeOfDataCalculation": "2021-04-02T11:15:45Z"
+}
