@@ -10,7 +10,7 @@ import { withNamespaces } from 'react-i18next';
 import convertTimestamp from '../scripts/convertTimestamp';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import oneCall from '../scripts/api_calls/onecall';
+import forecastDaily from '../scripts/api_calls/forecastDaily';
 import fetchLocation from '../scripts/api_calls/fetchLocation';
 import autoComplete from '../scripts/api_calls/autoComplete';
 
@@ -78,24 +78,22 @@ const ForecastbyCity = ({ t }) => {
                         </Col>
                         <Col>
                             <Button onClick={() => {
-                                oneCall(latlng).then(
+                                fetchLocation().then(
                                     (res) => {
+                                        setlatlng({ lat: res.data[0].lat, lon: res.data[0].lon })
+                                    }).catch((error) => {
+                                        notify(t(error.message))
+                                    })
+                                forecastDaily(latlng).then(
+                                    (res) => {
+                                        console.log(res)
                                         setResults({ data: res.data })
+                                    }).then(() => {
+                                        setView(true);
                                     }).catch((error) => {
                                         // console.log(error)
                                         notify(t(error.message))
                                     });
-                                fetchLocation().then(
-                                    (res) => {
-                                        //console.log(res.data[0].lon)
-                                        setlatlng({ lat: res.data[0].lat, lon: res.data[0].lon })
-                                        console.log(results.data.daily[0])
-                                        if (results.data.daily[0].dt !== ""){
-                                            setView(true);
-                                        }
-                                    }).catch((error) => {
-                                        notify(t(error.message))
-                                    })
                             }}>{t("Check Weather")}</Button>
                         </Col>
                     </Row>

@@ -10,7 +10,7 @@ import convertTimestamp from '../scripts/convertTimestamp';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { withNamespaces } from 'react-i18next';
-import oneCall from '../scripts/api_calls/onecall';
+import forecastDaily from '../scripts/api_calls/forecastDaily';
 import fetchLocation from '../scripts/api_calls/fetchLocation';
 import autoComplete from '../scripts/api_calls/autoComplete';
 
@@ -73,7 +73,7 @@ const Statistics = ({ t }) => {
                         </Col>
                         <Col>
                         <Button onClick={() => {
-                                oneCall(latlng).then(
+                                forecastDaily(latlng).then(
                                     (res) => {
                                         setResults({ data: res.data })
                                     }).catch((error) => {
