@@ -4,8 +4,7 @@ import WeatherCard from './WeatherCard';
 // import WeatherMap from './Map/WeatherMap'
 import WeatherMap from './MapGL/Maps';
 // import MyGoogleMap from './map2/GoogleMap'
-import { Container, Row, Col } from 'react-grid-system';
-import { Button, Jumbotron } from 'react-bootstrap';
+import { Container, Row, Col, Button, Jumbotron } from 'react-bootstrap';
 import Sidebar from './Sidebar/Sidebar';
 // import data from '../Jsons/coordinates'
 // import { useHistory } from 'react-router-dom';
@@ -19,19 +18,19 @@ import revGeoloc from '../scripts/api_calls/rev_geoloc';
 
 const Home = ({ t }) => {
 
-    const [lnglat, setCoordinates] = useState({ coordinates: [" ", " "] });
+    const [lnglat, setCoordinates] = useState({ coordinates: ["10.10", "10.10"] });
     // const [results, setResults] = useState({weather_state: '-', weather_forecast_datetime: '-', weather_min_temp: '-', weather_max_temp: '-', weather_icon: '01d' });
     const [results, setResults] = useState({ data: {} });
     const [cityname, setCityName] = useState({ name: "", country: "" });
     // const history = useHistory();
 
     const customId = "toast_id";
-    const Msg = ({message}) => (
+    const Msg = ({ message }) => (
         <h4>
             {message}
         </h4>
-      )
-    const notify = (message) => toast.info(<Msg message={message}/>, {toastId: customId});
+    )
+    const notify = (message) => toast.info(<Msg message={message} />, { toastId: customId });
 
     // const promisaki = new Promise((resolve) => {
     //     resolve(notify(t("alert1")));
@@ -53,64 +52,90 @@ const Home = ({ t }) => {
         //     FallbackComponent={ErrorFallback}>
         <Container fluid>
             <Row>
-                <Col offset={{ sm: 2 }}>
-                    <Jumbotron fluid>
-                        <Container>
-                            {results.data.main === undefined ? null : (
-                                <h1>{cityname.name + " " + cityname.country}</h1>
-                            )}
-                            <p>
-                                {t("jumbotron_message")}
-                            </p>
-                            <p>
-                                <Button onClick={() => {
-                                    onSearch(lnglat).then(
-                                        (res) => {
-                                            setResults({ data: res.data })
-                                            console.log(res.weatherDescription[0])
-                                        }).catch((error) => {
-                                            notify(t(error.message))
-                                        });
-                                    revGeoloc(lnglat).then((res) => {
-                                        setCityName({ name: res.data.address.county, country: res.data.address.country });
-                                    }).catch((error) => {
-                                        notify(t(error.message))
-                                    })
-                                }}>{t("Current Weather")}</Button>
-                            </p>
-                        </Container>
-                    </Jumbotron>
+                <Col xs={2}>
+                    <Container fluid>
+                        <Sidebar />
+                    </Container>
                 </Col>
-            </Row>
-            <Row>
-                <Col sm={1}>
-                    <Sidebar />
-                </Col>
-                <Col offset={{ sm: 1 }}>
-                    {results.data.main === undefined ? null : (
-                        <>
-                            <Row>
-                                <Col sm={4}>
-                                    <WeatherCard
-                                        dt={convertTimestamp(results.data.timeOfDataCalculation)}
-                                        temp_min={results.data.mainInfo.tempMin}
-                                        temp_max={results.data.mainInfo.tempMax}
-                                        main={results.data.weatherDescription[0].main}
-                                        icon={results.data.weatherDescription[0].icon}
-                                    />
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <hr />
-                                </Col>
-                            </Row>
-                        </>)
-                    }
+                <Col xs={10}>
                     <Row>
                         <Col>
-                            <WeatherMap Coord={(lnglat) => { setCoordinates({ coordinates: lnglat.coordinates }); console.log("parent " + lnglat.coordinates) }} />
-                            {/* <MyGoogleMap /> */}
+                            <Container fluid>
+                                <Jumbotron fluid>
+                                    <Container fluid>
+                                        <Row>
+                                            <Col>
+                                                {results.data.mainInfo === undefined ? null : (
+                                                    <h1>{cityname.name + " " + cityname.country}</h1>
+                                                )}
+                                                <p>
+                                                    {t("jumbotron_message")}
+                                                </p>
+                                                <p>
+                                                    <Button onClick={() => {
+                                                        onSearch(lnglat).then(
+                                                            (res) => {
+                                                                console.log(res)
+                                                                setResults({ data: res.data })
+                                                            }).catch((error) => {
+                                                                notify(t(error.message))
+                                                            });
+                                                        revGeoloc(lnglat).then((res) => {
+                                                            setCityName({ name: res.data.address.county, country: res.data.address.country });
+                                                        }).catch((error) => {
+                                                            notify(t(error.message))
+                                                        })
+                                                    }}>{t("Current Weather")}</Button>
+                                                </p>
+                                            </Col>
+                                        </Row>
+                                    </Container>
+                                </Jumbotron>
+                            </Container>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            {results.data.mainInfo === undefined ? null : (
+                                <>
+                                    <Row>
+                                        <Col>
+                                            <Container fluid>
+                                                <Row>
+                                                    <Col>
+                                                        <WeatherCard
+                                                            dt={convertTimestamp(results.data.timeOfDataCalculation)}
+                                                            temp_min={results.data.mainInfo.tempMin}
+                                                            temp_max={results.data.mainInfo.tempMax}
+                                                            main={results.data.weatherDescription[0].main}
+                                                            icon={results.data.weatherDescription[0].icon}
+                                                        />
+                                                    </Col>
+                                                </Row>
+
+                                            </Container>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <hr />
+                                        </Col>
+                                    </Row>
+                                </>)
+                            }
+                            <Row>
+                                <Col>
+                                    <Container fluid>
+                                        <Row>
+                                            <Col>
+                                                <WeatherMap Coord={(lnglat) => { setCoordinates({ coordinates: lnglat.coordinates }); console.log("parent " + lnglat.coordinates) }} />
+                                                {/* <MyGoogleMap /> */}
+                                            </Col>
+                                        </Row>
+
+                                    </Container>
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
                 </Col>

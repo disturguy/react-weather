@@ -5,7 +5,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import Sidebar from './Sidebar/Sidebar';
 import '../assets/css/Hint.css';
 import { Hint } from 'react-autocomplete-hint';
-import data from '../jsons/coordinates'
+// import data from '../jsons/coordinates'
 import { withNamespaces } from 'react-i18next';
 import convertTimestamp from '../scripts/convertTimestamp';
 import { toast } from 'react-toastify';
@@ -25,7 +25,7 @@ const ForecastbyCity = ({ t }) => {
     // const [text, setText] = useState('');
     const [city, setCity] = useState('');
     // const [results, setResults] = useState({weather_state: '-', weather_forecast_datetime: '-', weather_min_temp: '-', weather_max_temp: '-', weather_icon: '01d' });
-    const [results, setResults] = useState({ data });
+    const [results, setResults] = useState({ data: {} });
     const [latlng, setlatlng] = useState({ lat: '10', lon: '10' })
     const [view, setView] = useState(false);
 
@@ -106,78 +106,78 @@ const ForecastbyCity = ({ t }) => {
                             }}>{t("Check Weather")}</Button>
                         </Col>
                     </Row>
+                    <hr />
                     {view === false ? null : (
                         <>
-                            <hr />
                             <Row>
                                 <Col sm={4}>
                                     <WeatherCard
-                                        dt={convertTimestamp(results.data.daily[0].dt)}
-                                        temp_min={results.data.daily[0].temp.min}
-                                        temp_max={results.data.daily[0].temp.max}
+                                        dt={convertTimestamp(results.data.daily[0].dateTime)}
+                                        temp_min={results.data.daily[0].temperature.minimum}
+                                        temp_max={results.data.daily[0].temperature.maximum}
                                         main={results.data.daily[0].weather[0].main}
                                         icon={results.data.daily[0].weather[0].icon}
                                     />
                                 </Col>
                                 <Col sm={4}>
                                     <WeatherCard
-                                        dt={convertTimestamp(results.data.daily[1].dt)}
-                                        temp_min={results.data.daily[1].temp.min}
-                                        temp_max={results.data.daily[1].temp.max}
+                                        dt={convertTimestamp(results.data.daily[1].dateTime)}
+                                        temp_min={results.data.daily[1].temperature.minimum}
+                                        temp_max={results.data.daily[1].temperature.maximum}
                                         main={results.data.daily[1].weather[0].main}
                                         icon={results.data.daily[1].weather[0].icon}
                                     />
                                 </Col>
                                 <Col sm={4}>
                                     <WeatherCard
-                                        dt={convertTimestamp(results.data.daily[2].dt)}
-                                        temp_min={results.data.daily[2].temp.min}
-                                        temp_max={results.data.daily[2].temp.max}
+                                        dt={convertTimestamp(results.data.daily[2].dateTime)}
+                                        temp_min={results.data.daily[2].temperature.minimum}
+                                        temp_max={results.data.daily[2].temperature.maximum}
                                         main={results.data.daily[2].weather[0].main}
                                         icon={results.data.daily[2].weather[0].icon}
                                     />
                                 </Col>
                                 <Col sm={4}>
                                     <WeatherCard
-                                        dt={convertTimestamp(results.data.daily[3].dt)}
-                                        temp_min={results.data.daily[3].temp.min}
-                                        temp_max={results.data.daily[3].temp.max}
+                                        dt={convertTimestamp(results.data.daily[3].dateTime)}
+                                        temp_min={results.data.daily[3].temperature.minimum}
+                                        temp_max={results.data.daily[3].temperature.maximum}
                                         main={results.data.daily[3].weather[0].main}
                                         icon={results.data.daily[3].weather[0].icon}
                                     />
                                 </Col>
                                 <Col sm={4}>
                                     <WeatherCard
-                                        dt={convertTimestamp(results.data.daily[4].dt)}
-                                        temp_min={results.data.daily[4].temp.min}
-                                        temp_max={results.data.daily[4].temp.max}
+                                        dt={convertTimestamp(results.data.daily[4].dateTime)}
+                                        temp_min={results.data.daily[4].temperature.minimum}
+                                        temp_max={results.data.daily[4].temperature.maximum}
                                         main={results.data.daily[4].weather[0].main}
                                         icon={results.data.daily[4].weather[0].icon}
                                     />
                                 </Col>
                                 <Col sm={4}>
                                     <WeatherCard
-                                        dt={convertTimestamp(results.data.daily[5].dt)}
-                                        temp_min={results.data.daily[5].temp.min}
-                                        temp_max={results.data.daily[5].temp.max}
+                                        dt={convertTimestamp(results.data.daily[5].dateTime)}
+                                        temp_min={results.data.daily[5].temperature.minimum}
+                                        temp_max={results.data.daily[5].temperature.maximum}
                                         main={results.data.daily[5].weather[0].main}
                                         icon={results.data.daily[5].weather[0].icon}
                                     />
                                 </Col>
                                 <Col sm={4}>
                                     <WeatherCard
-                                        dt={convertTimestamp(results.data.daily[6].dt)}
-                                        temp_min={results.data.daily[6].temp.min}
-                                        temp_max={results.data.daily[6].temp.max}
+                                        dt={convertTimestamp(results.data.daily[6].dateTime)}
+                                        temp_min={results.data.daily[6].temperature.minimum}
+                                        temp_max={results.data.daily[6].temperature.maximum}
                                         main={results.data.daily[6].weather[0].main}
                                         icon={results.data.daily[6].weather[0].icon}
                                     />
                                 </Col>
                                 <Col sm={4}>
                                     <WeatherCard
-                                        dt={convertTimestamp(results.data.daily[7].dt)}
-                                        temp_min={results.data.daily[7].temp.min}
-                                        temp_max={results.data.daily[7].temp.max}
+                                        dt={convertTimestamp(results.data.daily[7].dateTime)}
+                                        temp_min={results.data.daily[7].temperature.minimum}
+                                        temp_max={results.data.daily[7].temperature.maximum}
                                         main={results.data.daily[7].weather[0].main}
                                         icon={results.data.daily[7].weather[0].icon}
                                     />

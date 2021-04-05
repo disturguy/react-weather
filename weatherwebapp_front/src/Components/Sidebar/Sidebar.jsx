@@ -1,5 +1,6 @@
-//import * as FaIcons from 'react-icons/fa';
+import * as FaIcons from 'react-icons/fa';
 //import * as AiIcons from 'react-icons/ai';
+import { useState } from 'react';
 import { Button } from 'react-bootstrap'
 import * as WiIcons from 'react-icons/wi';
 import { Link } from 'react-router-dom';
@@ -7,12 +8,12 @@ import { SidebarData } from './SidebarData';
 import '../../assets/css/Sidebar.css';
 import { IconContext } from 'react-icons';
 import i18n from '../../i18n'
-import {withNamespaces} from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 
-function Sidebar({t}) {
-  // const [sidebar, setSidebar] = useState(false);
+function Sidebar({ t }) {
+  const [sidebar, setSidebar] = useState(false);
 
-  // const showSidebar = () => setSidebar(!sidebar);
+  const showSidebar = () => setSidebar(!sidebar);
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
@@ -21,22 +22,18 @@ function Sidebar({t}) {
   return (
     <>
       <IconContext.Provider value={{ color: '#fff', size: '2em' }}>
-        {/* <div className='navbar'>
+        <div className='navbar'>
           <Link to='#' className='menu-bars'>
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
-        </div> */}
-        {/* <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
+        </div>
+        <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
           <ul className='nav-menu-items' onClick={showSidebar}>
             <li className='navbar-toggle'>
-              <Link to='#' className='menu-bars'>
-                <AiIcons.AiOutlineClose />
+              <Link to='#'>
+                <FaIcons.FaBars />
               </Link>
-            </li> */}
-        <nav className='nav-menu active'>
-          <ul className='nav-menu-items'>
-            <li className='navbar-toggle'>
-              <WiIcons.WiDayCloudyGusts /> <h3> Weather App </h3>
+              <h3> Weather App </h3>
             </li>
             {SidebarData.map((item, index) => {
               return (

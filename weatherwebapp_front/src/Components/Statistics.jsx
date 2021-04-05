@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Container, Row, Col } from 'react-grid-system';
 import Sidebar from './Sidebar/Sidebar';
 import Charts from './Charts/Charts';
-import { Button } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import '../assets/css/Hint.css';
 import { Hint } from 'react-autocomplete-hint';
-import data from '../jsons/coordinates';
+// import data from '../jsons/coordinates';
 import convertTimestamp from '../scripts/convertTimestamp';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -31,8 +30,8 @@ import autoComplete from '../scripts/api_calls/autoComplete';
 const Statistics = ({ t }) => {
     const [hintData, setHintData] = useState([]);
     const [city, setCity] = useState('');
-    const [results, setResults] = useState({ data });
-    const [latlng, setlatlng] = useState({ lat: ' ', lon: ' ' })
+    const [results, setResults] = useState({ data: {} });
+    const [latlng, setlatlng] = useState({ lat: '10.10', lon: '10.10' })
     const [view, setView] = useState(false);
 
     const customId = "toast_id";
@@ -75,6 +74,7 @@ const Statistics = ({ t }) => {
                         <Button onClick={() => {
                                 fetchLocation().then(
                                     (res) => {
+                                        console.log(res.data)
                                         if (res.data[0] !== undefined) {
                                             setlatlng({ lat: res.data[0].lat, lon: res.data[0].lon })
                                         }else{
@@ -85,7 +85,7 @@ const Statistics = ({ t }) => {
                                     })
                                 forecastDaily(latlng).then(
                                     (res) => {
-                                        if (res.data[0] !== undefined) {
+                                        if (res.data.daily !== undefined) {
                                             setResults({ data: res.data })
                                         }else{
                                             throw new Error("alert4")
@@ -93,7 +93,7 @@ const Statistics = ({ t }) => {
                                     }).then(() => {
                                         setView(true);
                                     }).catch((error) => {
-                                        // console.log(error)
+                                        //console.log(error)
                                         notify(t(error.message))
                                     });
                             }}>{t("Check Weather")}</Button>
@@ -105,14 +105,14 @@ const Statistics = ({ t }) => {
                             {view === false ? null : (
                                 <Charts data={{
                                     data1: [
-                                        (results.data.daily[0].temp.max + results.data.daily[0].temp.min) / 2,
-                                        (results.data.daily[1].temp.max + results.data.daily[1].temp.min) / 2,
-                                        (results.data.daily[2].temp.max + results.data.daily[2].temp.min) / 2,
-                                        (results.data.daily[3].temp.max + results.data.daily[3].temp.min) / 2,
-                                        (results.data.daily[4].temp.max + results.data.daily[4].temp.min) / 2,
-                                        (results.data.daily[5].temp.max + results.data.daily[5].temp.min) / 2,
-                                        (results.data.daily[6].temp.max + results.data.daily[6].temp.min) / 2,
-                                        (results.data.daily[7].temp.max + results.data.daily[7].temp.min) / 2],
+                                        (results.data.daily[0].temperature.maximum + results.data.daily[0].temperature.minimum) / 2,
+                                        (results.data.daily[1].temperature.maximum + results.data.daily[1].temperature.minimum) / 2,
+                                        (results.data.daily[2].temperature.maximum + results.data.daily[2].temperature.minimum) / 2,
+                                        (results.data.daily[3].temperature.maximum + results.data.daily[3].temperature.minimum) / 2,
+                                        (results.data.daily[4].temperature.maximum + results.data.daily[4].temperature.minimum) / 2,
+                                        (results.data.daily[5].temperature.maximum + results.data.daily[5].temperature.minimum) / 2,
+                                        (results.data.daily[6].temperature.maximum + results.data.daily[6].temperature.minimum) / 2,
+                                        (results.data.daily[7].temperature.maximum + results.data.daily[7].temperature.minimum) / 2,],
                                     data2: [
                                         results.data.daily[0].weather[0].main,
                                         results.data.daily[1].weather[0].main,
@@ -123,14 +123,14 @@ const Statistics = ({ t }) => {
                                         results.data.daily[6].weather[0].main,
                                         results.data.daily[7].weather[0].main],
                                     data3: [
-                                        convertTimestamp(results.data.daily[0].dt),
-                                        convertTimestamp(results.data.daily[1].dt),
-                                        convertTimestamp(results.data.daily[2].dt),
-                                        convertTimestamp(results.data.daily[3].dt),
-                                        convertTimestamp(results.data.daily[4].dt),
-                                        convertTimestamp(results.data.daily[5].dt),
-                                        convertTimestamp(results.data.daily[6].dt),
-                                        convertTimestamp(results.data.daily[7].dt)
+                                        convertTimestamp(results.data.daily[0].dateTime),
+                                        convertTimestamp(results.data.daily[1].dateTime),
+                                        convertTimestamp(results.data.daily[2].dateTime),
+                                        convertTimestamp(results.data.daily[3].dateTime),
+                                        convertTimestamp(results.data.daily[4].dateTime),
+                                        convertTimestamp(results.data.daily[5].dateTime),
+                                        convertTimestamp(results.data.daily[6].dateTime),
+                                        convertTimestamp(results.data.daily[7].dateTime)
                                     ]
                                 }
                                 }

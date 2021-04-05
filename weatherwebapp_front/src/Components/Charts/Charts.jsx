@@ -1,6 +1,6 @@
 import React from 'react';
 import { Doughnut, Bar } from 'react-chartjs-2';
-import { Row, Col } from 'react-grid-system';
+import { Row, Col } from 'react-bootstrap';
 
 // var temperature_data = {
 // 	labels: [
@@ -67,7 +67,7 @@ const Charts = ({ data }) => {
     counts[data.data2[i]] = 1 + (counts[data.data2[i]] || 0);
 	}
 
-	console.log(data)
+	//console.log(data)
 	
 
 	return (

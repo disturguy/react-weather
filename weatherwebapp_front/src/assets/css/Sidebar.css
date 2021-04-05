@@ -1,15 +1,20 @@
 .navbar {
   background-color: #060b26;
-  height: 80px;
+  width: 60px;
+  height: 100vh;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  position: fixed;
+  top: 0;
+  margin-left: -11%;
+
 }
 
 .menu-bars {
-  margin-left: 2rem;
-  font-size: 2rem;
+  font-size: 1rem;
   background: none;
+  position: fixed;
+  height: 100vh;
+  top: 0;  
 }
 
 .nav-menu {
