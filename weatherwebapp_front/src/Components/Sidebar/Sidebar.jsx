@@ -11,9 +11,11 @@ import i18n from '../../i18n'
 import { withNamespaces } from 'react-i18next'
 
 function Sidebar({ t }) {
-  const [sidebar, setSidebar] = useState(false);
+  const [sidebar, setSidebar] = useState(true);
+  const [Short_Sidebar, setShort_sidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
+  const showShort_Sidebar = () => setShort_sidebar(!Short_Sidebar);
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
@@ -22,18 +24,24 @@ function Sidebar({ t }) {
   return (
     <>
       <IconContext.Provider value={{ color: '#fff', size: '2em' }}>
-        <div className='navbar'>
-          <Link to='#' className='menu-bars'>
-            <FaIcons.FaBars onClick={showSidebar} />
-          </Link>
-        </div>
+        <nav className={Short_Sidebar ? 'navbar active' : 'navbar'}>
+          <ul className='nav-menu-items'>
+            <li className='navbar-toggle'>
+              <Link to='#' className='menu-bars'>
+                <FaIcons.FaBars onClick={() => { showShort_Sidebar(); showSidebar(); }} />
+              </Link>
+            </li>
+          </ul>
+        </nav>
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-          <ul className='nav-menu-items' onClick={showSidebar}>
+          <ul className='nav-menu-items' onClick={() => { showShort_Sidebar(); showSidebar(); }}>
             <li className='navbar-toggle'>
               <Link to='#'>
-                <FaIcons.FaBars />
+                <FaIcons.FaArrowCircleLeft />
               </Link>
-              <h3> Weather App </h3>
+            </li>
+            <li>
+              <h4> Weather App </h4>
             </li>
             {SidebarData.map((item, index) => {
               return (

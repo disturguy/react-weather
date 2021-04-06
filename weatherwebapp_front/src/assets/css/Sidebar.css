@@ -1,12 +1,18 @@
 .navbar {
   background-color: #060b26;
-  width: 60px;
+  width: 95px;
   height: 100vh;
   display: flex;
+  justify-content: center;
   position: fixed;
   top: 0;
-  margin-left: -11%;
+  left: -100%;
+  transition: 850ms;
+}
 
+.navbar.active {
+  left: -11%;
+  transition: 350ms;
 }
 
 .menu-bars {
@@ -14,12 +20,12 @@
   background: none;
   position: fixed;
   height: 100vh;
-  top: 0;  
+  top: 0;    
 }
 
 .nav-menu {
   background-color: #060b26;
-  width: 250px;
+  width: auto;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -38,7 +44,6 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 8px 0px 8px 16px;
   list-style: none;
   height: 60px;
 }
@@ -51,7 +56,6 @@
   height: 100%;
   display: flex;
   align-items: center;
-  padding: 0 16px;
   border-radius: 4px;
 }
 
@@ -60,8 +64,11 @@
 }
 
 .nav-menu-items {
-  width: 100%;
+    width: 100%;
+    font-size: 18px;
+    padding: 0px 15px 15px 15px;
 }
+
 
 .navbar-toggle {
   background-color: #060b26;
@@ -69,20 +76,19 @@
   height: 80px;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: center;  
 }
 
 span {
   margin-left: 16px;
 }
 
-h3{
+h4{
   color: aliceblue;
-  font-size:x-small
 }
 
 li:not(:last-child){
-  margin-bottom:3rem;
+  margin-bottom:1rem;
 }
 
 ul{

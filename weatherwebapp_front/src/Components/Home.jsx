@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 // import Header from './Header';
 import WeatherCard from './WeatherCard';
 // import WeatherMap from './Map/WeatherMap'
@@ -52,12 +52,12 @@ const Home = ({ t }) => {
         //     FallbackComponent={ErrorFallback}>
         <Container fluid>
             <Row>
-                <Col xs={2}>
+                <Col xs sm md l lg={1}>
                     <Container fluid>
                         <Sidebar />
                     </Container>
                 </Col>
-                <Col xs={10}>
+            <Col xs sm md l lg={11}>
                     <Row>
                         <Col>
                             <Container fluid>

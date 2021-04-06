@@ -18,8 +18,8 @@ function WeatherMap({Coord}) {
     const [lnglat, setCoordinates] = useState({coordinates:[23.727539, 37.7577]})
 
     const [viewport, setViewport] = useState({
-        width: "80vw",
-        height: "80vh",
+        width: "88vw",
+        height: "88vh",
         longitude: 23.727539,
         latitude: 37.983810,
         zoom: 14,
@@ -34,7 +34,7 @@ function WeatherMap({Coord}) {
             onViewportChange={nextViewport => setViewport(nextViewport)} onDblClick={(obj) => {setCoordinates({coordinates: obj.lngLat}); Coord(lnglat);}}>
             <NavigationControl style={navControlStyle} />
             <Marker longitude={lnglat.coordinates[0]} latitude={lnglat.coordinates[1]} offsetLeft={-20} offsetTop={-10}>
-                <div>Forecast Loccation</div>
+                <div>Forecast Location</div>
             </Marker>
             <GeolocateControl
                 style={geolocateControlStyle}

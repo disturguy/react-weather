@@ -1,6 +1,5 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-grid-system';
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Container, Row, Col  } from 'react-bootstrap'
 import Sidebar from './Sidebar/Sidebar'
 
 const UserInfo = () => {
