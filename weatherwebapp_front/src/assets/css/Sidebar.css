@@ -11,7 +11,7 @@
 }
 
 .navbar.active {
-  left: -11%;
+  left: -30%;
   transition: 350ms;
 }
 

@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 // import Header from './Header';
 import WeatherCard from './WeatherCard';
 // import WeatherMap from './Map/WeatherMap'
@@ -16,7 +16,13 @@ import convertTimestamp from '../scripts/convertTimestamp';
 import onSearch from '../scripts/api_calls/current_weather';
 import revGeoloc from '../scripts/api_calls/rev_geoloc';
 
-const Home = ({ t }) => {
+
+
+import Switch from 'react-switch';
+import { FaHeart, FaBars } from 'react-icons/fa';
+import reactLogo from '../assets/images/logo.svg'
+
+const Home = ({ t, collapsed, image, handleToggleSidebar, handleCollapsedChange, handleRtlChange, handleImageChange }) => {
 
     const [lnglat, setCoordinates] = useState({ coordinates: ["10.10", "10.10"] });
     // const [results, setResults] = useState({weather_state: '-', weather_forecast_datetime: '-', weather_min_temp: '-', weather_max_temp: '-', weather_icon: '01d' });
@@ -50,97 +56,125 @@ const Home = ({ t }) => {
 
         // <ErrorBoundary
         //     FallbackComponent={ErrorFallback}>
-        <Container fluid>
-            <Row>
-                <Col xs sm md l lg={1}>
-                    <Container fluid>
-                        <Sidebar />
-                    </Container>
-                </Col>
-            <Col xs sm md l lg={11}>
-                    <Row>
-                        <Col>
-                            <Container fluid>
-                                <Jumbotron fluid>
-                                    <Container fluid>
-                                        <Row>
-                                            <Col>
-                                                {results.data.mainInfo === undefined ? null : (
-                                                    <h1>{cityname.name + " " + cityname.country}</h1>
-                                                )}
-                                                <p>
-                                                    {t("jumbotron_message")}
-                                                </p>
-                                                <p>
-                                                    <Button onClick={() => {
-                                                        onSearch(lnglat).then(
-                                                            (res) => {
-                                                                console.log(res)
-                                                                setResults({ data: res.data })
+        <>
+            <div className="btn-toggle" onClick={() => handleToggleSidebar(true)}>
+                <FaBars />
+            </div>
+            <Container fluid>
+                <Row>
+                    <Col className="block ">
+                        <Switch
+                            height={16}
+                            width={30}
+                            checkedIcon={false}
+                            uncheckedIcon={false}
+                            onChange={handleCollapsedChange}
+                            checked={collapsed}
+                            onColor="#219de9"
+                            offColor="#bbbbbb"
+                        />
+                        <span> {t('collapsed')}</span>
+                    </Col>
+                    <Col className="block">
+                        <Switch
+                            height={16}
+                            width={30}
+                            checkedIcon={false}
+                            uncheckedIcon={false}
+                            onChange={handleImageChange}
+                            checked={image}
+                            onColor="#219de9"
+                            offColor="#bbbbbb"
+                        />
+                        <span> {t('image')}</span>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Row>
+                            <Col>
+                                <Container fluid>
+                                    <Jumbotron fluid>
+                                        <Container fluid>
+                                            <Row>
+                                                <Col>
+                                                    {results.data.mainInfo === undefined ? null : (
+                                                        <h1>{cityname.name + " " + cityname.country}</h1>
+                                                    )}
+                                                    <p>
+                                                        {t("jumbotron_message")}
+                                                    </p>
+                                                    <p>
+                                                        <Button onClick={() => {
+                                                            onSearch(lnglat).then(
+                                                                (res) => {
+                                                                    console.log(res)
+                                                                    setResults({ data: res.data })
+                                                                }).catch((error) => {
+                                                                    notify(t(error.message))
+                                                                });
+                                                            revGeoloc(lnglat).then((res) => {
+                                                                setCityName({ name: res.data.address.county, country: res.data.address.country });
                                                             }).catch((error) => {
                                                                 notify(t(error.message))
-                                                            });
-                                                        revGeoloc(lnglat).then((res) => {
-                                                            setCityName({ name: res.data.address.county, country: res.data.address.country });
-                                                        }).catch((error) => {
-                                                            notify(t(error.message))
-                                                        })
-                                                    }}>{t("Current Weather")}</Button>
-                                                </p>
-                                            </Col>
-                                        </Row>
-                                    </Container>
-                                </Jumbotron>
-                            </Container>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            {results.data.mainInfo === undefined ? null : (
-                                <>
-                                    <Row>
-                                        <Col>
-                                            <Container fluid>
-                                                <Row>
-                                                    <Col>
-                                                        <WeatherCard
-                                                            dt={convertTimestamp(results.data.timeOfDataCalculation)}
-                                                            temp_min={results.data.mainInfo.tempMin}
-                                                            temp_max={results.data.mainInfo.tempMax}
-                                                            main={results.data.weatherDescription[0].main}
-                                                            icon={results.data.weatherDescription[0].icon}
-                                                        />
-                                                    </Col>
-                                                </Row>
-
-                                            </Container>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col>
-                                            <hr />
-                                        </Col>
-                                    </Row>
-                                </>)
-                            }
-                            <Row>
-                                <Col>
-                                    <Container fluid>
+                                                            })
+                                                        }}>{t("Current Weather")}</Button>
+                                                    </p>
+                                                </Col>
+                                            </Row>
+                                        </Container>
+                                    </Jumbotron>
+                                </Container>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                {results.data.mainInfo === undefined ? null : (
+                                    <>
                                         <Row>
                                             <Col>
-                                                <WeatherMap Coord={(lnglat) => { setCoordinates({ coordinates: lnglat.coordinates }); console.log("parent " + lnglat.coordinates) }} />
-                                                {/* <MyGoogleMap /> */}
+                                                <Container fluid>
+                                                    <Row>
+                                                        <Col>
+                                                            <WeatherCard
+                                                                dt={convertTimestamp(results.data.timeOfDataCalculation)}
+                                                                temp_min={results.data.mainInfo.tempMin}
+                                                                temp_max={results.data.mainInfo.tempMax}
+                                                                main={results.data.weatherDescription[0].main}
+                                                                icon={results.data.weatherDescription[0].icon}
+                                                            />
+                                                        </Col>
+                                                    </Row>
+
+                                                </Container>
                                             </Col>
                                         </Row>
+                                        <Row>
+                                            <Col>
+                                                <hr />
+                                            </Col>
+                                        </Row>
+                                    </>)
+                                }
+                                <Row>
+                                    <Col>
+                                        <Container fluid>
+                                            <Row>
+                                                <Col>
+                                                    <WeatherMap Coord={(lnglat) => { setCoordinates({ coordinates: lnglat.coordinates }); console.log("parent " + lnglat.coordinates) }} />
+                                                    {/* <MyGoogleMap /> */}
+                                                </Col>
+                                            </Row>
 
-                                    </Container>
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Row>
-                </Col>
-            </Row>
-        </Container>
+                                        </Container>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+            </Container>
+        </>
         // </ErrorBoundary>
     );
 }

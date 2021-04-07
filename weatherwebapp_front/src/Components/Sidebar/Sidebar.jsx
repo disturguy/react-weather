@@ -1,68 +1,118 @@
-import * as FaIcons from 'react-icons/fa';
-//import * as AiIcons from 'react-icons/ai';
-import { useState } from 'react';
-import { Button } from 'react-bootstrap'
-import * as WiIcons from 'react-icons/wi';
-import { Link } from 'react-router-dom';
-import { SidebarData } from './SidebarData';
+import {   ProSidebar,
+    Menu,
+    MenuItem,
+    SubMenu,
+    SidebarHeader,
+    SidebarFooter,
+    SidebarContent } from 'react-pro-sidebar';
+import 'react-pro-sidebar/dist/css/styles.css';
+import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa'; import { Button } from 'react-bootstrap';
+import sidebarBg from '../../assets/images/bg1.jpg'
+
 import '../../assets/css/Sidebar.css';
 import { IconContext } from 'react-icons';
 import i18n from '../../i18n'
 import { withNamespaces } from 'react-i18next'
 
-function Sidebar({ t }) {
-  const [sidebar, setSidebar] = useState(true);
-  const [Short_Sidebar, setShort_sidebar] = useState(false);
 
-  const showSidebar = () => setSidebar(!sidebar);
-  const showShort_Sidebar = () => setShort_sidebar(!Short_Sidebar);
+function Sidebar({ t, image, collapsed, toggled, handleToggleSidebar }) {
 
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  }
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+    }
 
-  return (
-    <>
-      <IconContext.Provider value={{ color: '#fff', size: '2em' }}>
-        <nav className={Short_Sidebar ? 'navbar active' : 'navbar'}>
-          <ul className='nav-menu-items'>
-            <li className='navbar-toggle'>
-              <Link to='#' className='menu-bars'>
-                <FaIcons.FaBars onClick={() => { showShort_Sidebar(); showSidebar(); }} />
-              </Link>
-            </li>
-          </ul>
-        </nav>
-        <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-          <ul className='nav-menu-items' onClick={() => { showShort_Sidebar(); showSidebar(); }}>
-            <li className='navbar-toggle'>
-              <Link to='#'>
-                <FaIcons.FaArrowCircleLeft />
-              </Link>
-            </li>
-            <li>
-              <h4> Weather App </h4>
-            </li>
-            {SidebarData.map((item, index) => {
-              return (
-                <li key={index} className={item.cName}>
-                  <Link to={item.path}>
-                    {item.icon}
-                    <span>{t(item.title)}</span>
-                  </Link>
-                </li>
-              );
-            })}
-            <li><span></span></li><li><span></span></li><li><span></span></li><li><span></span></li><li><span></span></li><li><span></span></li>
-            <li>
-              <span><Button onClick={() => changeLanguage('en')}>en</Button></span>
-              <span><Button onClick={() => changeLanguage('gr')}>gr</Button></span>
-            </li>
-          </ul>
-        </nav>
-      </IconContext.Provider>
-    </>
-  );
+    return (
+        <>
+            <ProSidebar
+                image={image ? sidebarBg : false}
+                collapsed={collapsed}
+                toggled={toggled}
+                breakPoint="md"
+                onToggle={handleToggleSidebar}
+            >
+                <SidebarHeader>
+                    <div
+                        style={{
+                            padding: '24px',
+                            textTransform: 'uppercase',
+                            fontWeight: 'bold',
+                            fontSize: 14,
+                            letterSpacing: '1px',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                        }}
+                    >
+                        {t('sidebarTitle' )}
+                    </div>
+                </SidebarHeader>
+
+                <SidebarContent>
+                    <Menu iconShape="circle">
+                        <MenuItem
+                            icon={<FaTachometerAlt />}
+                            suffix={<span className="badge red">{t('new' )}</span>}
+                        >
+                            {t('dashboard' )}
+                        </MenuItem>
+                        <MenuItem icon={<FaGem />}> {t('components')}</MenuItem>
+                    </Menu>
+                    <Menu iconShape="circle">
+                        <SubMenu
+                            suffix={<span className="badge yellow">3</span>}
+                            title={t('withSuffix')}
+                            icon={<FaRegLaughWink />}
+                        >
+                            <MenuItem>{t('submenu')} 1</MenuItem>
+                            <MenuItem>{t('submenu' )} 2</MenuItem>
+                            <MenuItem>{t('submenu' )} 3</MenuItem>
+                        </SubMenu>
+                        <SubMenu
+                            prefix={<span className="badge gray">3</span>}
+                            title={t('withPrefix')}
+                            icon={<FaHeart />}
+                        >
+                            <MenuItem>{t('submenu')} 1</MenuItem>
+                            <MenuItem>{t('submenu')} 2</MenuItem>
+                            <MenuItem>{t('submenu')} 3</MenuItem>
+                        </SubMenu>
+                        <SubMenu title={t( 'multiLevel' )} icon={<FaList />}>
+                            <MenuItem>{t( 'submenu' )} 1 </MenuItem>
+                            <MenuItem>{t( 'submenu' )} 2 </MenuItem>
+                            <SubMenu title={`${t('submenu' )} 3`}>
+                                <MenuItem>{t( 'submenu' )} 3.1 </MenuItem>
+                                <MenuItem>{t( 'submenu' )} 3.2 </MenuItem>
+                                <SubMenu title={`${t( 'submenu' )} 3.3`}>
+                                    <MenuItem>{t('submenu')} 3.3.1 </MenuItem>
+                                    <MenuItem>{t( 'submenu' )} 3.3.2 </MenuItem>
+                                    <MenuItem>{t( 'submenu' )} 3.3.3 </MenuItem>
+                                </SubMenu>
+                            </SubMenu>
+                        </SubMenu>
+                    </Menu>
+                </SidebarContent>
+
+                <SidebarFooter style={{ textAlign: 'center' }}>
+                    <div
+                        className="sidebar-btn-wrapper"
+                        style={{
+                            padding: '20px 24px',
+                        }}
+                    >
+                        <a
+                            href="https://github.com/azouaoui-med/react-pro-sidebar"
+                            target="_blank"
+                            className="sidebar-btn"
+                            rel="noopener noreferrer"
+                        >
+                            <FaGithub />
+                            <span> {t( 'viewSource' )}</span>
+                        </a>
+                    </div>
+                </SidebarFooter>
+            </ProSidebar>
+        </>
+    );
 }
 
 export default withNamespaces()(Sidebar);

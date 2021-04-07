@@ -1,5 +1,6 @@
 import '../assets/css/App.css';
-import Home from '../Components/Home';
+// import Home from '../Components/Home';
+import Home from '../Components/Home_Layout';
 import Forecast from '../Components/Forecast' ;
 import Statistics from '../Components/Statistics' ;
 import UserInfo from '../Components/UserInfo' ;
