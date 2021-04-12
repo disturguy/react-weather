@@ -46,9 +46,6 @@ const Statistics = ({ t }) => {
     return (
         <Container fluid>
             <Row>
-                <Col sm={2}>
-                    <Sidebar />
-                </Col>
                 <Col sm={10}>
                     <Row>
                         <Col sm={4}>

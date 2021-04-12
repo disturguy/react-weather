@@ -1,10 +1,7 @@
 import '../assets/css/App.css';
 // import Home from '../Components/Home';
-import Home from '../Components/Home_Layout';
-import Forecast from '../Components/Forecast' ;
-import Statistics from '../Components/Statistics' ;
-import UserInfo from '../Components/UserInfo' ;
-import Error_page from './Error_page'
+import Layout from '../Components/Layout';
+import Error_page from './Error_page';
 
 import {
   BrowserRouter as Router,
@@ -12,15 +9,15 @@ import {
   Route
 } from "react-router-dom";
 
-
 function MainRouting() {
+
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={Home}/>
-        <Route path="/forecast" component={Forecast}/>
-        <Route path="/stats" component={Statistics}/>
-        <Route path="/userinfo" component={UserInfo}/>
+        <Route exact path="/" render={()=><Layout route={"home"}/>}/>
+        <Route path="/forecast" render={()=><Layout route={"forecast"}/>}/>
+        <Route path="/stats" render={()=><Layout route={"statistics"}/>}/>
+        <Route path="/userinfo" render={()=><Layout route={"userinfo"}/>}/>
         <Route component={Error_page}/>
       </Switch>
   </Router >

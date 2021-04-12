@@ -6,9 +6,6 @@ const UserInfo = () => {
     return (
         <Container fluid>
             <Row>
-                <Col sm={1}>
-                    <Sidebar />
-                </Col>
                 <Col offset={{ sm: 1 }}>
                     <Row align="center" style={{ height: '100px' }}>
                         <Col>

@@ -17,7 +17,7 @@ import convertTimestamp from "../scripts/convertTimestamp";
 import onSearch from "../scripts/api_calls/current_weather";
 import revGeoloc from "../scripts/api_calls/rev_geoloc";
 
-const Home = ({ t, collapsed, handleToggleSidebar, handleCollapsedChange }) => {
+const Home = ({ t }) => {
   const [lnglat, setCoordinates] = useState({
     coordinates: ["10.10", "10.10"],
   });
