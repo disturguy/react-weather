@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-// import Header from './Header';
-import WeatherCard from "./WeatherCard";
-// import WeatherMap from './Map/WeatherMap'
-import WeatherMap from "./MapGL/Maps";
-// import MyGoogleMap from './map2/GoogleMap'
-import { Container, Row, Col, Button, Jumbotron } from "react-bootstrap";
-import Sidebar from "./Sidebar/Sidebar";
+// import Sidebar from "./Sidebar/Sidebar";
 // import data from '../Jsons/coordinates'
 // import { useHistory } from 'react-router-dom';
 // import { ErrorBoundary } from 'react-error-boundary'
+// import Header from './Header';
+// import WeatherMap from './Map/WeatherMap'
+// import MyGoogleMap from './map2/GoogleMap'
+
+import React, { useState } from "react";
+import WeatherCard from "./WeatherCard";
+import WeatherMap from "./MapGL/Maps";
+import { Container, Row, Col, Button, Jumbotron } from "react-bootstrap";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { withNamespaces } from "react-i18next";
@@ -16,19 +17,7 @@ import convertTimestamp from "../scripts/convertTimestamp";
 import onSearch from "../scripts/api_calls/current_weather";
 import revGeoloc from "../scripts/api_calls/rev_geoloc";
 
-import Switch from "react-switch";
-import { FaHeart, FaBars } from "react-icons/fa";
-import reactLogo from "../assets/images/logo.svg";
-
-const Home = ({
-  t,
-  collapsed,
-  image,
-  handleToggleSidebar,
-  handleCollapsedChange,
-  handleRtlChange,
-  handleImageChange,
-}) => {
+const Home = ({ t, collapsed, handleToggleSidebar, handleCollapsedChange }) => {
   const [lnglat, setCoordinates] = useState({
     coordinates: ["10.10", "10.10"],
   });
@@ -42,10 +31,6 @@ const Home = ({
   const notify = (message) =>
     toast.info(<Msg message={message} />, { toastId: customId });
 
-  // const promisaki = new Promise((resolve) => {
-  //     resolve(notify(t("alert1")));
-  // });
-
   // function ErrorFallback({ error }) {
 
   //     return (
@@ -56,8 +41,7 @@ const Home = ({
   //     )
   // }
 
-
-    /* <Row>
+  /* <Row>
           <Col className="block">
             <Switch
               height={16}
@@ -83,27 +67,6 @@ const Home = ({
             <Row>
               <Col>
                 <Container fluid>
-                  <Row>
-                    <Col>
-                      <div
-                        className="btn-toggle"
-                        onClick={() => handleToggleSidebar(true)}
-                      >
-                        <FaBars />
-                        <span> </span>
-                        <Switch
-                          height={16}
-                          width={30}
-                          checkedIcon={false}
-                          uncheckedIcon={false}
-                          onChange={handleCollapsedChange}
-                          checked={collapsed}
-                          onColor="#219de9"
-                          offColor="#bbbbbb"
-                        />
-                      </div>
-                    </Col>
-                  </Row>
                   <Jumbotron fluid>
                     <Container fluid>
                       <Row>
