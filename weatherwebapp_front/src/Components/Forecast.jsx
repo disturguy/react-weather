@@ -118,6 +118,7 @@ const ForecastbyCity = ({ t }) => {
                         main={results.data.daily[0].weather[0].main}
                         icon={results.data.daily[0].weather[0].icon}
                       />
+                      <br></br>
                     </Col>
                     <Col sm={4}>
                       <WeatherCard
@@ -127,6 +128,7 @@ const ForecastbyCity = ({ t }) => {
                         main={results.data.daily[1].weather[0].main}
                         icon={results.data.daily[1].weather[0].icon}
                       />
+                      <br></br>
                     </Col>
                     <Col sm={4}>
                       <WeatherCard
@@ -136,6 +138,7 @@ const ForecastbyCity = ({ t }) => {
                         main={results.data.daily[2].weather[0].main}
                         icon={results.data.daily[2].weather[0].icon}
                       />
+                      <br></br>
                     </Col>
                     <Col sm={4}>
                       <WeatherCard
@@ -145,6 +148,7 @@ const ForecastbyCity = ({ t }) => {
                         main={results.data.daily[3].weather[0].main}
                         icon={results.data.daily[3].weather[0].icon}
                       />
+                      <br></br>
                     </Col>
                     <Col sm={4}>
                       <WeatherCard
@@ -154,6 +158,7 @@ const ForecastbyCity = ({ t }) => {
                         main={results.data.daily[4].weather[0].main}
                         icon={results.data.daily[4].weather[0].icon}
                       />
+                      <br></br>
                     </Col>
                     <Col sm={4}>
                       <WeatherCard
@@ -163,6 +168,7 @@ const ForecastbyCity = ({ t }) => {
                         main={results.data.daily[5].weather[0].main}
                         icon={results.data.daily[5].weather[0].icon}
                       />
+                      <br></br>
                     </Col>
                     <Col sm={4}>
                       <WeatherCard
@@ -172,6 +178,7 @@ const ForecastbyCity = ({ t }) => {
                         main={results.data.daily[6].weather[0].main}
                         icon={results.data.daily[6].weather[0].icon}
                       />
+                      <br></br>
                     </Col>
                     <Col sm={4}>
                       <WeatherCard
@@ -181,6 +188,7 @@ const ForecastbyCity = ({ t }) => {
                         main={results.data.daily[7].weather[0].main}
                         icon={results.data.daily[7].weather[0].icon}
                       />
+                      <br></br>
                     </Col>
                   </Row>
                 </Container>
