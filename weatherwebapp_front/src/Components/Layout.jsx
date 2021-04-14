@@ -22,15 +22,15 @@ function Layout({ t, route }) {
 
   //`app ${toggled ? "toggled" : ""}`
   return (
-    <div className={`flex-container`}>
-      <div className="flex-child">
+    <div className="flex-container">
+      <div className="flex-child" style={{ flexGrow: "1"}}>
         <Sidebar
           collapsed={collapsed}
           toggled={toggled}
           handleToggleSidebar={handleToggleSidebar}
         />
       </div>
-      <div className="flex-child" style={{ height: "100vh"}}>
+      <div className="flex-child" style={{ height: "100vh", overflow: "auto"}}>
         <Container fluid>
           <Row>
             <Col>
