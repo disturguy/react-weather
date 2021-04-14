@@ -92,7 +92,7 @@ function Sidebar({ t, collapsed, toggled, handleToggleSidebar }) {
             >
               <Col>
                 <a
-                  href="https://github.com/azouaoui-med/react-pro-sidebar"
+                  href="https://github.com/disturguy/react-weather"
                   target="_blank"
                   className="sidebar-btn"
                   rel="noopener noreferrer"
