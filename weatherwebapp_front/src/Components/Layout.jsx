@@ -23,7 +23,7 @@ function Layout({ t, route }) {
   //`app ${toggled ? "toggled" : ""}`
   return (
     <div className="flex-container">
-      <div className="flex-child" style={{ flexGrow: "1"}}>
+      <div className="flex-child">
         <Sidebar
           collapsed={collapsed}
           toggled={toggled}

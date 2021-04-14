@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Sidebar from "./Sidebar/Sidebar";
 import Charts from "./Charts/Charts";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "../assets/css/Hint.css";

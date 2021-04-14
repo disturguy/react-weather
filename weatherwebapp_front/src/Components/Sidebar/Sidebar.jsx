@@ -8,7 +8,7 @@ import {
 } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import * as FA from "react-icons/fa";
-import { Button, Container, Row, Col } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 import sidebarBg from "../../assets/images/bg1.jpg";
 import { Link } from "react-router-dom";
 import { IconContext } from "react-icons";

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import WeatherCard from "./WeatherCard";
 //import WeatherMap from './Map/WeatherMap'
 import { Container, Row, Col, Button } from "react-bootstrap";
-import Sidebar from "./Sidebar/Sidebar";
 import "../assets/css/Hint.css";
 import { Hint } from "react-autocomplete-hint";
 // import data from '../jsons/coordinates'
