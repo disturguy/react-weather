@@ -18,8 +18,8 @@ function WeatherMap({Coord}) {
     const [lnglat, setCoordinates] = useState({coordinates:[23.727539, 37.7577]})
 
     const [viewport, setViewport] = useState({
-        width: "88vw",
-        height: "88vh",
+        width: "100vw",
+        height: "100vh",
         longitude: 23.727539,
         latitude: 37.983810,
         zoom: 14,

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Sidebar from "./Sidebar/Sidebar";
 import Home from "./Home";
 import Forecast from './Forecast';
 import Statistics from './Statistics';
 import UserInfo from './UserInfo';
-import { Container, Row, Col, Button, Jumbotron } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 
 
@@ -20,8 +20,9 @@ function Layout({ t, route }) {
     setToggled(value);
   };
 
+  //`app ${toggled ? "toggled" : ""}`
   return (
-    <div className={`app ${toggled ? "toggled" : ""} flex-container`}>
+    <div className={`flex-container`}>
       <div className="flex-child">
         <Sidebar
           collapsed={collapsed}
@@ -29,7 +30,7 @@ function Layout({ t, route }) {
           handleToggleSidebar={handleToggleSidebar}
         />
       </div>
-      <div className="flex-child">
+      <div className="flex-child" style={{ height: "100vh"}}>
         <Container fluid>
           <Row>
             <Col>
